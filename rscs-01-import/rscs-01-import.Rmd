@@ -93,7 +93,7 @@ We can also import plain text files by clicking *Import Dataset* in the **Enviro
 knitr::include_graphics(path = "https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/env-pane.png")
 ```
 
-As we can see from the dropdown options, `readr`'s functions are designed to work with 'Text' (or 'plain text') files. There are also import functions from base R, but we won't cover those here. 
+As we can see from the drop-down options, `readr`'s functions are designed to work with 'Text' (or 'plain text') files. R comes 'out of the box' with other functions for importing plain text files, but we won't cover those here. 
 
 ### Delimited files 
 
@@ -105,8 +105,6 @@ All `readr` functions will import data from a local file *or* web URL. Below we 
 knitr::include_graphics(path = "https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-txt.png")
 ```
 
-These are sometimes called [pipe-delimited flat files](https://en.wikipedia.org/wiki/Delimiter-separated_values), and their extension is usually `.txt` or `.dat`.
-
 Click 'Run Code' to see the imported file:
 
 ```{r read_delim-file-txt, exercise=TRUE}
@@ -115,15 +113,20 @@ Click 'Run Code' to see the imported file:
 readr::read_delim(file = "https://bit.ly/01-file-txt")
 ```
 
+
+These are sometimes called [pipe-delimited flat files](https://en.wikipedia.org/wiki/Delimiter-separated_values), and their extension is usually `.txt` or `.dat`.
+
 As we can see, if we do not specify a `delim =` argument, `read_delim()` will guess based on the contents of `data/file.txt`.
 
-Provide the `delim = ` argument, (just remember to include it in quotes)
+Provide the `delim = ` argument for fun (just remember to include it in quotes):
 
 ```{r read_delim-file-txt-delim, exercise=TRUE}
 # identical to:
 # readr::read_delim(file = "data/file.txt", delim = "|")
 readr::read_delim(file = "https://bit.ly/01-file-txt", delim = )
 ```
+
+As we can see, we get the same result as above. 
 
 
 ### Comma-separated values files (period decimals)
@@ -193,7 +196,7 @@ Tab-separated files are similar to comma-separated value files, except instead o
 knitr::include_graphics(path = "https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-tsv.png")
 ```
 
-You might be wondering how `readr` can differentiate the white space *between values on the same line* and the white space *between rows*. This is because the white space between values contains a tab, which is a [special character](https://en.wikipedia.org/wiki/Tab_key#Tab_characters) used to identify tabs (`\t`). This is different from the invisible character used to identify a new row (or [Newline](https://en.wikipedia.org/wiki/Newline)), which  is `\n`.
+You might be wondering how `readr` can differentiate the white space *between values on the same line* and the white space *between rows*? This is because the white space between values contains a [special character](https://en.wikipedia.org/wiki/Tab_key#Tab_characters) used to identify tabs (`\t`). This is different from the special character used to identify a new row (or [Newline](https://en.wikipedia.org/wiki/Newline)), which  is `\n`.
 
 Copy the URL below and place it (in quotes) in the `file =` argument.
 

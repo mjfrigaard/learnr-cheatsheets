@@ -171,7 +171,7 @@ library(googlesheets4)</code></pre>
 <p>There are four primary functions for importing delimited files: <code>read_delim()</code>, <code>read_csv()</code>, <code>read_csv2()</code>, and <code>read_tsv()</code>.</p>
 <p>We can also import plain text files by clicking <em>Import Dataset</em> in the <strong>Environment</strong> pane (see below:)</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/env-pane.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
-<p>As we can see from the dropdown options, <code>readr</code>‘s functions are designed to work with ’Text’ (or ‘plain text’) files. There are also import functions from base R, but we won’t cover those here.</p>
+<p>As we can see from the dropdown options, <code>readr</code>‘s functions are designed to work with ’Text’ (or ‘plain text’) files. R comes ‘out of the box’ with other functions for importing plain text files, but we won’t cover those here.</p>
 <div id="section-delimited-files" class="section level3">
 <h3>Delimited files</h3>
 <blockquote>
@@ -179,7 +179,6 @@ library(googlesheets4)</code></pre>
 </blockquote>
 <p>All <code>readr</code> functions will import data from a local file <em>or</em> web URL. Below we use a URL for the <code>file.txt</code> data, which has the following structure:</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-txt.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
-<p>These are sometimes called <a href="https://en.wikipedia.org/wiki/Delimiter-separated_values">pipe-delimited flat files</a>, and their extension is usually <code>.txt</code> or <code>.dat</code>.</p>
 <p>Click ‘Run Code’ to see the imported file:</p>
 <div class="tutorial-exercise" data-label="read_delim-file-txt" data-caption="import cheatseet" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># identical to:
@@ -187,14 +186,16 @@ library(googlesheets4)</code></pre>
 readr::read_delim(file = &quot;https://bit.ly/01-file-txt&quot;)</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":true,"message":true,"exercise.df_print":"default","exercise.checker":"NULL"}</script>
 </div>
+<p>These are sometimes called <a href="https://en.wikipedia.org/wiki/Delimiter-separated_values">pipe-delimited flat files</a>, and their extension is usually <code>.txt</code> or <code>.dat</code>.</p>
 <p>As we can see, if we do not specify a <code>delim =</code> argument, <code>read_delim()</code> will guess based on the contents of <code>data/file.txt</code>.</p>
-<p>Provide the <code>delim =</code> argument, (just remember to include it in quotes)</p>
+<p>Provide the <code>delim =</code> argument for fun (just remember to include it in quotes):</p>
 <div class="tutorial-exercise" data-label="read_delim-file-txt-delim" data-caption="import cheatseet" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># identical to:
 # readr::read_delim(file = &quot;data/file.txt&quot;, delim = &quot;|&quot;)
 readr::read_delim(file = &quot;https://bit.ly/01-file-txt&quot;, delim = )</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":true,"message":true,"exercise.df_print":"default","exercise.checker":"NULL"}</script>
 </div>
+<p>As we can see, we get the same result as above.</p>
 </div>
 <div id="section-comma-separated-values-files-period-decimals" class="section level3">
 <h3>Comma-separated values files (period decimals)</h3>
@@ -241,7 +242,7 @@ read_csv2(file = )</code></pre>
 </blockquote>
 <p>Tab-separated files are similar to comma-separated value files, except instead of using commas to delimit each value, they use tabs. In a text editor, these files appear to have white space between the values:</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-tsv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
-<p>You might be wondering how <code>readr</code> can differentiate the white space <em>between values on the same line</em> and the white space <em>between rows</em>. This is because the white space between values contains a tab, which is a <a href="https://en.wikipedia.org/wiki/Tab_key#Tab_characters">special character</a> used to identify tabs (<code>\t</code>). This is different from the invisible character used to identify a new row (or <a href="https://en.wikipedia.org/wiki/Newline">Newline</a>), which is <code>\n</code>.</p>
+<p>You might be wondering how <code>readr</code> can differentiate the white space <em>between values on the same line</em> and the white space <em>between rows</em>? This is because the white space between values contains a <a href="https://en.wikipedia.org/wiki/Tab_key#Tab_characters">special character</a> used to identify tabs (<code>\t</code>). This is different from the special character used to identify a new row (or <a href="https://en.wikipedia.org/wiki/Newline">Newline</a>), which is <code>\n</code>.</p>
 <p>Copy the URL below and place it (in quotes) in the <code>file =</code> argument.</p>
 <pre class="markdown"><code>https://bit.ly/01-file-tsv</code></pre>
 <p>Click ‘Run Code’ to see the imported file:</p>
@@ -630,8 +631,8 @@ bind_rows(f1, f2, f3)</code></pre>
 </ul>
 <p>When providing column types, you must either 1) enter nothing (in which case <code>readxl</code> will guess the column type based on the contents), 2) enter a single column type for all columns (like we did above with <code>"text"</code>), or 3) enter one column type for each column in the data file.</p>
 <p>I’ve included the data types for each option of the <code>col_types</code> argument below:</p>
-<div id="htmlwidget-c6f2fb20ef1a886f388b" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-c6f2fb20ef1a886f388b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ba23f353799c97a2c3f8" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-ba23f353799c97a2c3f8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="section-export-data-with-writexl" class="section level2">
@@ -790,8 +791,8 @@ range_read(
 </li>
 <li>cell - <code>"C"</code> Returns list of raw cell data.</li>
 </ul>
-<div id="htmlwidget-8979978614eae04c6f59" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-8979978614eae04c6f59">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-613c098d2250a17a2a8e" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-613c098d2250a17a2a8e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="section-metadata" class="section level3">
 <h3>Metadata</h3>
