@@ -155,7 +155,7 @@ library(googlesheets4)</code></pre>
 <h2>Data files</h2>
 <p>Below is an example of the data files used in this tutorial on macOS. We can see each file name and extension is associated with a different ‘Kind’ (or type).</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/files-folder.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
-<p>You can download the data uses in this example <a href="https://github.com/mjfrigaard/csuc-data-jounalism-learnr/tree/main/cheatsheets/rscs-01-import/data">here</a>.</p>
+<p>You can download the data uses in this example <a href="https://github.com/mjfrigaard/learnr-cheatsheets/raw/main/rscs-01-import/download/data.zip">here</a>.</p>
 <p>We’ll assume each data file is located in a <code>data/</code> folder like the one printed below:</p>
 <pre class="r"><code># data/
 #   ├── f1.csv
@@ -164,14 +164,16 @@ library(googlesheets4)</code></pre>
 #   ├── file.csv
 #   ├── file.tsv
 #   ├── file.txt
-#   └── file2.csv</code></pre>
+#   └── file2.csv
+#   └── readxl
+#    └── readxl-data.xlsx</code></pre>
 </div>
 <div id="section-plain-text-files-readr" class="section level2">
 <h2>Plain text files (<code>readr</code>)</h2>
 <p>There are four primary functions for importing delimited files: <code>read_delim()</code>, <code>read_csv()</code>, <code>read_csv2()</code>, and <code>read_tsv()</code>.</p>
 <p>We can also import plain text files by clicking <em>Import Dataset</em> in the <strong>Environment</strong> pane (see below:)</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/env-pane.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
-<p>As we can see from the dropdown options, <code>readr</code>‘s functions are designed to work with ’Text’ (or ‘plain text’) files. R comes ‘out of the box’ with other functions for importing plain text files, but we won’t cover those here.</p>
+<p>As we can see from the drop-down options, <code>readr</code>‘s functions are designed to work with ’Text’ (or ‘plain text’) files. R comes ‘out of the box’ with other functions for importing plain text files, but we won’t cover those here.</p>
 <div id="section-delimited-files" class="section level3">
 <h3>Delimited files</h3>
 <blockquote>
@@ -486,7 +488,7 @@ write_tsv(x = file_tsv, file = &quot;processed-data/file_tsv.tsv&quot;) </code><
 <div id="section-excel-files-with-readxl" class="section level2">
 <h2>Excel files with <code>readxl</code></h2>
 <p>Microsoft Excel files are commonly used for data entry and storage. Despite being a proprietary format, we’re able to import these files using the <code>readxl</code> package.</p>
-<p>The data in this section are available at this <a href="https://github.com/mjfrigaard/csuc-data-jounalism-learnr/raw/main/cheatsheets/rscs-01-import/data/readxl/readxl-data.xlsx">link</a>. This file has the following contents:</p>
+<p>The data in this section are available at this <a href="https://github.com/mjfrigaard/learnr-cheatsheets/raw/main/rscs-01-import/download/data.zip">link</a>. This file has the following contents:</p>
 <p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/excel-file.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>We’ll proceed as though they’ve been downloaded into a local <code>data/readxl/</code> folder.</p>
 <div id="section-read-files" class="section level3">
@@ -631,8 +633,8 @@ bind_rows(f1, f2, f3)</code></pre>
 </ul>
 <p>When providing column types, you must either 1) enter nothing (in which case <code>readxl</code> will guess the column type based on the contents), 2) enter a single column type for all columns (like we did above with <code>"text"</code>), or 3) enter one column type for each column in the data file.</p>
 <p>I’ve included the data types for each option of the <code>col_types</code> argument below:</p>
-<div id="htmlwidget-ba23f353799c97a2c3f8" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-ba23f353799c97a2c3f8">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-55d97f0e1593f4538520" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-55d97f0e1593f4538520">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="section-export-data-with-writexl" class="section level2">
@@ -791,8 +793,8 @@ range_read(
 </li>
 <li>cell - <code>"C"</code> Returns list of raw cell data.</li>
 </ul>
-<div id="htmlwidget-613c098d2250a17a2a8e" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-613c098d2250a17a2a8e">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-5af26656ea664d6c3c13" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-5af26656ea664d6c3c13">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="section-metadata" class="section level3">
 <h3>Metadata</h3>
@@ -1004,7 +1006,7 @@ output$`tutorial-exercise-gs4_get-output` <- renderUI({
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","base64enc","bit","bit64","broom","bslib","cellranger","cli","colorspace","compiler","crayon","crosstalk","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","graphics","grDevices","grid","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","httr","jquerylib","jsonlite","knitr","later","learnr","lifecycle","lubridate","magrittr","markdown","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","promises","purrr","R6","Rcpp","reactable","reactR","readr","readxl","repr","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","skimr","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tools","tzdb","utf8","utils","vctrs","vroom","withr","writexl","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","0.1-3","4.0.4","4.0.5","0.7.10","0.3.1","1.1.0","3.1.0","2.0-2","4.1.2","1.4.2","1.2.0","4.1.2","1.1.2","2.1.1","0.6.29","1.0.7","0.3.2","0.14","0.5.0","1.1.0","0.5.1","1.5.2","1.2.0","0.1.1","3.3.5","1.6.0","2.0.0","1.0.0","4.1.2","4.1.2","4.1.2","0.3.0","2.4.3","0.9","1.1.1","0.5.2","1.5.4","1.6.4","1.4.2","0.1.4","1.7.2","1.37","1.3.0","0.10.1","1.0.1","1.8.0","2.0.1","1.1","4.1.2","0.12","0.1.8","0.5.0","4.2.5","4.1.2","1.6.4","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.7","0.2.3","0.4.4","2.1.1","1.3.1","1.1.3","2.0.1","0.4.12","2.11","2.0.2","0.13","1.0.2","0.4.0.9000","1.1.1","1.7.1","2.1.3","4.1.2","1.7.6","1.4.0","3.1.6","1.1.4","1.1.1","1.3.1","4.1.2","0.2.0","1.2.2","4.1.2","0.3.8","1.5.7","2.4.3","1.4.0","0.29","1.3.3","1.8-4","2.2.1","2.2.0"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","base64enc","bit","bit64","broom","bslib","cellranger","cli","colorspace","compiler","crayon","crosstalk","datasets","DBI","dbplyr","digest","dplyr","ellipsis","evaluate","fansi","fastmap","forcats","fs","gargle","generics","ggplot2","glue","googledrive","googlesheets4","graphics","grDevices","grid","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","httr","jquerylib","jsonlite","knitr","later","learnr","lifecycle","lubridate","magrittr","markdown","methods","mime","modelr","munsell","openxlsx","parallel","pillar","pkgconfig","promises","purrr","R6","Rcpp","reactable","reactR","readr","readxl","repr","reprex","rlang","rmarkdown","rprojroot","rstudioapi","rvest","sass","scales","shiny","skimr","stats","stringi","stringr","tibble","tidyr","tidyselect","tidyverse","tools","tzdb","utf8","utils","vctrs","vroom","withr","writexl","xfun","xml2","xtable","yaml","zip"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","0.1-3","4.0.4","4.0.5","0.7.10","0.3.1","1.1.0","3.1.0","2.0-2","4.1.2","1.4.2","1.2.0","4.1.2","1.1.2","2.1.1","0.6.29","1.0.7.9000","0.3.2","0.14","0.5.0","1.1.0","0.5.1","1.5.2","1.2.0","0.1.1","3.3.5","1.6.0","2.0.0","1.0.0","4.1.2","4.1.2","4.1.2","0.3.0","2.4.3.9000","0.9","1.1.1","0.5.2","1.5.4","1.6.4","1.4.2","0.1.4","1.7.2","1.37","1.3.0","0.10.1","1.0.1","1.8.0","2.0.1","1.1","4.1.2","0.12","0.1.8","0.5.0","4.2.5","4.1.2","1.6.4","2.0.3","1.2.0.1","0.3.4","2.5.1","1.0.7","0.2.3","0.4.4","2.1.1","1.3.1","1.1.3","2.0.1","0.99.0.9003","2.11","2.0.2","0.13","1.0.2","0.4.0","1.1.1","1.7.1","2.1.3","4.1.2","1.7.6","1.4.0","3.1.6","1.1.4","1.1.1","1.3.1","4.1.2","0.2.0","1.2.2","4.1.2","0.3.8","1.5.7","2.4.3","1.4.0","0.29","1.3.3","1.8-4","2.2.1","2.2.0"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>

@@ -5,10 +5,10 @@ account: mjfrigaard
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5383667
-bundleId: 5427022
+bundleId: 5427172
 url: https://mjfrigaard.shinyapps.io/rscs-01-import/
-when: 1641139172.77351
-lastSyncTime: 1641139172.77352
+when: 1641144577.35683
+lastSyncTime: 1641144577.35686
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: 01-data-import.pdf
+ignoredFiles: 01-data-import.pdf|download/.DS_Store|download/data.zip|rscs-01-import.html
