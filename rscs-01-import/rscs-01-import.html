@@ -143,18 +143,18 @@ $(document).ready(function () {
 <div id="section-the-cheatsheet" class="section level2">
 <h2>The cheatsheet</h2>
 <p>Access the cheatsheet <a href="https://github.com/rstudio/cheatsheets/blob/main/data-import.pdf">here</a>.</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/01-import-p1.png" width="80%" height="80%" style="display: block; margin: auto auto auto 0;" /></p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/01-import-p2.png" width="80%" height="80%" style="display: block; margin: auto 0 auto auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/01-import-p1.png" width="80%" height="80%" style="display: block; margin: auto auto auto 0;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/01-import-p2.png" width="80%" height="80%" style="display: block; margin: auto 0 auto auto;" /></p>
 <p>This cheatsheet covers importing data of various formats into RStudio. We’re going to show how this looks on your machine (with examples).</p>
 <p>Below we install and load the packages:</p>
 <pre class="r"><code>install.packages(c(&quot;readr&quot;, &quot;googlesheets4&quot;))
 library(readr)
 library(googlesheets4)</code></pre>
 </div>
-<div id="section-read-tabular-data-with-readr" class="section level2">
-<h2>Read Tabular Data with <code>readr</code></h2>
-<p>Below is an example of the data files on macOS. We can see each file name and extension is associated with a different ‘Kind’ (or type).</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/files-folder.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<div id="section-data-files" class="section level2">
+<h2>Data files</h2>
+<p>Below is an example of the data files used in this tutorial on macOS. We can see each file name and extension is associated with a different ‘Kind’ (or type).</p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/files-folder.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>You can download the data uses in this example <a href="https://github.com/mjfrigaard/csuc-data-jounalism-learnr/tree/main/cheatsheets/rscs-01-import/data">here</a>.</p>
 <p>We’ll assume each data file is located in a <code>data/</code> folder like the one printed below:</p>
 <pre class="r"><code># data/
@@ -166,11 +166,11 @@ library(googlesheets4)</code></pre>
 #   ├── file.txt
 #   └── file2.csv</code></pre>
 </div>
-<div id="section-read-delimited-files-readr" class="section level2">
-<h2>Read delimited files (<code>readr</code>)</h2>
+<div id="section-plain-text-files-readr" class="section level2">
+<h2>Plain text files (<code>readr</code>)</h2>
 <p>There are four primary functions for importing delimited files: <code>read_delim()</code>, <code>read_csv()</code>, <code>read_csv2()</code>, and <code>read_tsv()</code>.</p>
 <p>We can also import plain text files by clicking <em>Import Dataset</em> in the <strong>Environment</strong> pane (see below:)</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/env-pane.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/env-pane.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
 <p>As we can see from the dropdown options, <code>readr</code>‘s functions are designed to work with ’Text’ (or ‘plain text’) files. There are also import functions from base R, but we won’t cover those here.</p>
 <div id="section-delimited-files" class="section level3">
 <h3>Delimited files</h3>
@@ -178,7 +178,7 @@ library(googlesheets4)</code></pre>
 <p>“Read files with any delimiter. If no delimiter is specified, it will automatically guess”</p>
 </blockquote>
 <p>All <code>readr</code> functions will import data from a local file <em>or</em> web URL. Below we use a URL for the <code>file.txt</code> data, which has the following structure:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/file-txt.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-txt.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
 <p>These are sometimes called <a href="https://en.wikipedia.org/wiki/Delimiter-separated_values">pipe-delimited flat files</a>, and their extension is usually <code>.txt</code> or <code>.dat</code>.</p>
 <p>Click ‘Run Code’ to see the imported file:</p>
 <div class="tutorial-exercise" data-label="read_delim-file-txt" data-caption="import cheatseet" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
@@ -202,7 +202,7 @@ readr::read_delim(file = &quot;https://bit.ly/01-file-txt&quot;, delim = )</code
 <p>“Read a comma delimited file with period decimal marks”</p>
 </blockquote>
 <p>The <code>read_csv()</code> function will import a comma-separated values (csv) file, like the one we have in <code>data/file.csv</code>:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/file-csv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-csv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
 <p>We’ve added a few decimal point values for demonstration purposes.</p>
 <p>Copy the URL below and place it (in quotes) in the <code>file =</code> argument.</p>
 <pre class="markdown"><code>https://bit.ly/01-file-csv</code></pre>
@@ -221,7 +221,7 @@ read_csv(file = )</code></pre>
 </blockquote>
 <p>Some datasets (like those from Sweden or Germany), will use commas for decimals (i.e. <code>0.5</code> = <code>0,5</code>) and semicolons as a delimiter (instead of pipes, tabs, or commas).</p>
 <p>We have an example in <code>data/file2.csv</code>:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/file2-csv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file2-csv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
 <p>To import these files, use the <code>read_csv2()</code> function.</p>
 <p>Copy the URL below and place it (in quotes) in the <code>file =</code> argument.</p>
 <pre class="markdown"><code>https://bit.ly/01-file2-csv</code></pre>
@@ -240,7 +240,7 @@ read_csv2(file = )</code></pre>
 <p>“Read a tab delimited file.”</p>
 </blockquote>
 <p>Tab-separated files are similar to comma-separated value files, except instead of using commas to delimit each value, they use tabs. In a text editor, these files appear to have white space between the values:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/file-tsv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/file-tsv.png" width="50%" height="50%" style="display: block; margin: auto;" /></p>
 <p>You might be wondering how <code>readr</code> can differentiate the white space <em>between values on the same line</em> and the white space <em>between rows</em>. This is because the white space between values contains a tab, which is a <a href="https://en.wikipedia.org/wiki/Tab_key#Tab_characters">special character</a> used to identify tabs (<code>\t</code>). This is different from the invisible character used to identify a new row (or <a href="https://en.wikipedia.org/wiki/Newline">Newline</a>), which is <code>\n</code>.</p>
 <p>Copy the URL below and place it (in quotes) in the <code>file =</code> argument.</p>
 <pre class="markdown"><code>https://bit.ly/01-file-tsv</code></pre>
@@ -267,12 +267,12 @@ readr::read_delim(file = &quot;paste here&quot;)</code></pre>
 <li><p>All data imported with <code>readr</code> functions are imported as a <code>tibble</code>.</p></li>
 <li><p><code>readr</code> gives us a lot of information whenever it imports a file (see below):</p></li>
 </ol>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/read-delim-specs.png" width="100%" height="100%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/read-delim-specs.png" width="100%" height="100%" style="display: block; margin: auto;" /></p>
 <p>Depending on which function you use, this will include the delimiter, decimal, column names, dimensions and column specifications (which we will cover in the next sections).</p>
 </div>
 </div>
-<div id="section-useful-read-arguments" class="section level2">
-<h2>Useful Read Arguments</h2>
+<div id="section-readr-import-arguments" class="section level2">
+<h2><code>readr</code> import arguments</h2>
 <p>In this section we’ll cover some additional arguments to give you more control over your imported datasets.</p>
 <div id="section-column-names-headers" class="section level3">
 <h3>Column names (Headers)</h3>
@@ -381,8 +381,8 @@ read_delim(file = &quot;https://bit.ly/01-file2-csv&quot;,
 <p>As we can see, the commas have been treated as decimals.</p>
 </div>
 </div>
-<div id="section-column-specification-with-readr" class="section level2">
-<h2>Column Specification with <code>readr</code></h2>
+<div id="section-readr-column-specification" class="section level2">
+<h2><code>readr</code> column specification</h2>
 <p>As we’ve seen, <code>readr</code> display a lot of useful information on imported files. However, there is even more information in contained in the column specifications, or <code>spec</code>. We can also tell <code>reader</code> how to format the columns we’re importing.</p>
 <div id="section-extract-column-specification" class="section level3">
 <h3>Extract column specification</h3>
@@ -438,20 +438,20 @@ readr::read_csv(file = &quot;https://bit.ly/01-file-csv&quot;,
 <div id="section-column-specifications-notes" class="section level3">
 <h3>Column specifications (notes)</h3>
 <p>Most of these options are available from the data import GUI in the <strong>Environment</strong> pane. After clicking on <em>Import Dataset</em>, you’ll select <em>From Text (readr)</em>. Click on <em>Browse</em> and navigate to a plain text file (the <code>file.csv</code> is show below as an example):</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/import-readr-gui-path.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/import-readr-gui-path.png" width="80%" height="80%" style="display: block; margin: auto;" /></p>
 <p>You’ll see a preview of the data file in the <strong>Data Preview</strong> section, with each column name and format. I’ve indicated the options we’ve covered in the <strong>Import Options</strong> section:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/import-readr-gui-options.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/import-readr-gui-options.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>Next to the <strong>Import Options</strong> there is a <strong>Code Preview</strong> section that will create the code needed to import what you see in the <strong>Data Preview</strong> section.</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/import-readr-gui-code.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/import-readr-gui-code.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>Changes to the <strong>Import Options</strong> will cause changes in the <strong>Code Preview</strong>. Below I change the <em>Skip</em>, <em>First Row as Names</em>, and <em>Open Data Viewer</em> options:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/import-readr-gui-options-alt.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/import-readr-gui-options-alt.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>And we can see the corresponding changes to the <strong>Code Preview</strong> section:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/import-readr-gui-code-alt.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/import-readr-gui-code-alt.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>Using the GUI is a helpful tool for learning how the R code works for importing code!</p>
 </div>
 </div>
-<div id="section-save-data-with-readr" class="section level2">
-<h2>Save Data with <code>readr</code></h2>
+<div id="section-saving-data-with-readr" class="section level2">
+<h2>Saving data with <code>readr</code></h2>
 <p>To export data with <code>readr</code>, we can use any of the corresponding <code>write_*()</code> functions. Each of these take an object in the current environment (<code>x</code>) and the desired <code>file</code> path (including the file extension):</p>
 <blockquote>
 <p>“Write files with any delimiter.”</p>
@@ -482,11 +482,11 @@ file_tsv &lt;- readr::read_tsv(file = &quot;data/file.tsv&quot;)
 # export to from processed-data/
 write_tsv(x = file_tsv, file = &quot;processed-data/file_tsv.tsv&quot;) </code></pre>
 </div>
-<div id="section-import-data-with-readxl" class="section level2">
-<h2>Import data with <code>readxl</code></h2>
+<div id="section-excel-files-with-readxl" class="section level2">
+<h2>Excel files with <code>readxl</code></h2>
 <p>Microsoft Excel files are commonly used for data entry and storage. Despite being a proprietary format, we’re able to import these files using the <code>readxl</code> package.</p>
 <p>The data in this section are available at this <a href="https://github.com/mjfrigaard/csuc-data-jounalism-learnr/raw/main/cheatsheets/rscs-01-import/data/readxl/readxl-data.xlsx">link</a>. This file has the following contents:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/excel-file.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/excel-file.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>We’ll proceed as though they’ve been downloaded into a local <code>data/readxl/</code> folder.</p>
 <div id="section-read-files" class="section level3">
 <h3>Read files</h3>
@@ -630,8 +630,8 @@ bind_rows(f1, f2, f3)</code></pre>
 </ul>
 <p>When providing column types, you must either 1) enter nothing (in which case <code>readxl</code> will guess the column type based on the contents), 2) enter a single column type for all columns (like we did above with <code>"text"</code>), or 3) enter one column type for each column in the data file.</p>
 <p>I’ve included the data types for each option of the <code>col_types</code> argument below:</p>
-<div id="htmlwidget-49dd5907f20259c61a53" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-49dd5907f20259c61a53">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c6f2fb20ef1a886f388b" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-c6f2fb20ef1a886f388b">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"logical":[true,false],"numeric":[2,3.45],"text":["hello","world"],"date":["1947-01-08","1956-10-21"],"list":["hello","1"]},"columns":[{"accessor":"logical","name":"logical","type":"logical"},{"accessor":"numeric","name":"numeric","type":"numeric"},{"accessor":"text","name":"text","type":"character"},{"accessor":"date","name":"date","type":"Date"},{"accessor":"list","name":"list","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"13bc001767f58988a0d59daac7a804d6","key":"13bc001767f58988a0d59daac7a804d6"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="section-export-data-with-writexl" class="section level2">
@@ -673,7 +673,7 @@ fs::dir_tree(&quot;data&quot;)</code></pre>
 #   └── writexl
 #     └── excel_data.xlsx</code></pre>
 <p>This gives us the following <code>excel_data.xlsx</code> file:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/excel-data-export.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/excel-data-export.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-export-data-with-openxlsx" class="section level2">
 <h2>Export data with openxlsx</h2>
@@ -686,9 +686,15 @@ addWorksheet(wb = workbook, sheetName = &quot;file-01.csv&quot;)
 addWorksheet(wb = workbook, sheetName = &quot;file-02.csv&quot;)
 addWorksheet(wb = workbook, sheetName = &quot;file-03.csv&quot;)
 # write data frames to sheets
-writeDataTable(wb = workbook, sheet = &quot;file-02.csv&quot;, x = excel_data$f2.csv)
-writeDataTable(wb = workbook, sheet = &quot;file-01.csv&quot;, x = excel_data$f1.csv)
-writeDataTable(wb = workbook, sheet = &quot;file-03.csv&quot;, x = excel_data$f3.csv)
+writeDataTable(wb = workbook, 
+    sheet = &quot;file-02.csv&quot;, 
+    x = excel_data$f2.csv)
+writeDataTable(wb = workbook, 
+    sheet = &quot;file-01.csv&quot;, 
+    x = excel_data$f1.csv)
+writeDataTable(wb = workbook, 
+    sheet = &quot;file-03.csv&quot;, 
+    x = excel_data$f3.csv)
 # create folder for output
 fs::dir_create(&quot;data/openxlsx/&quot;)
 # save workbook
@@ -696,7 +702,7 @@ saveWorkbook(wb = workbook,
              file = &quot;data/openxlsx/openxlsx-output.xlsx&quot;, 
              overwrite = TRUE)</code></pre>
 <p>This gives us the following file:</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/openxlsx-export.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/openxlsx-export.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>You can read more about these options on the <a href="https://ycphs.github.io/openxlsx/articles/Introduction.html"><code>openxlsx</code> website</a>.</p>
 </div>
 <div id="section-import-data-with-googlesheets4" class="section level2">
@@ -719,7 +725,7 @@ Is it OK to cache OAuth access credentials in the folder ~/Library/Caches/gargle
 <div id="section-read-sheets-1" class="section level3">
 <h3>Read sheets</h3>
 <p>I’ve stored the data from the previous sections in a Google sheet available at <a href="https://docs.google.com/spreadsheets/d/1jOmVxBfJesO7NRYyiT1Ox6k6hGTNX0DRm1ZzAZU2sEQ/edit?usp=sharing">this link</a>.</p>
-<p><img src="https://raw.githubusercontent.com/mjfrigaard/csuc-data-jounalism-learnr/main/cheatsheets/rscs-01-import/www/gs4-data.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
+<p><img src="https://raw.githubusercontent.com/mjfrigaard/learnr-cheatsheets/main/rscs-01-import/www/gs4-data.png" width="90%" height="90%" style="display: block; margin: auto;" /></p>
 <p>The link for these data is also available is below:</p>
 <pre class="markdown"><code>https://docs.google.com/spreadsheets/d/1jOmVxBfJesO7NRYyiT1Ox6k6hGTNX0DRm1ZzAZU2sEQ/edit?usp=sharing</code></pre>
 <p>The function for importing data from Google Sheets is <code>range_read()</code>. Copy the link above and paste it (in quotes) into the <code>range_read()</code> function below, along with the name of the sheet (<code>"file-01.csv"</code>).</p>
@@ -744,6 +750,9 @@ range_read(
     range = )</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":true,"message":true,"exercise.df_print":"default","exercise.setup":"setup-range_read-args","exercise.checker":"NULL"}</script>
 </div>
+</div>
+<div id="section-column-specifications" class="section level3">
+<h3>Column specifications</h3>
 <p>We can also specify the column types, but with slightly different syntax from <code>readxl</code> and <code>readr</code>:</p>
 <div class="tutorial-exercise-support" data-label="setup-googlesheets4-col_types" data-caption="import cheatseet" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>gs4_deauth()</code></pre>
@@ -781,8 +790,8 @@ range_read(
 </li>
 <li>cell - <code>"C"</code> Returns list of raw cell data.</li>
 </ul>
-<div id="htmlwidget-26776dde470524cc80e7" class="reactable html-widget" style="width:auto;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-26776dde470524cc80e7">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-8979978614eae04c6f59" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-8979978614eae04c6f59">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"l":[true,false],"n":[2,3.45],"c":["hello","world"],"D":["1947-01-08","1956-10-21"],"L":["hello","1"]},"columns":[{"accessor":"l","name":"l","type":"logical"},{"accessor":"n","name":"n","type":"numeric"},{"accessor":"c","name":"c","type":"character"},{"accessor":"D","name":"D","type":"Date"},{"accessor":"L","name":"L","type":"character"}],"defaultPageSize":10,"paginationType":"numbers","showPageInfo":true,"minRows":1,"dataKey":"6c0c2866ea584e888bec8c1cc3f9e247","key":"6c0c2866ea584e888bec8c1cc3f9e247"},"children":[]},"class":"reactR_markup"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="section-metadata" class="section level3">
 <h3>Metadata</h3>
@@ -790,19 +799,28 @@ range_read(
 <pre class="text"><code>gs4_deauth()</code></pre>
 </div>
 <p>If we’d like to know the metadata (data about the data) in a Google Sheet, we can use the <code>gs4_get()</code> function.</p>
+<pre class="markdown"><code>https://docs.google.com/spreadsheets/d/1jOmVxBfJesO7NRYyiT1Ox6k6hGTNX0DRm1ZzAZU2sEQ/edit?usp=sharing</code></pre>
 <p>Pass the URL from the sheet above to <code>ss</code> argument in <code>gs4_get()</code> below:</p>
 <div class="tutorial-exercise" data-label="gs4_get" data-caption="import cheatseet" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>gs4_get(ss = )</code></pre>
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":true,"error":true,"message":true,"exercise.df_print":"default","exercise.setup":"setup-gs4_get","exercise.checker":"NULL"}</script>
 </div>
-</div>
-<div id="section-column-specifications" class="section level3">
-<h3>Column specifications</h3>
+<p>If you use Google sheets regularly and other Google tools, check out the <a href="https://googledrive.tidyverse.org/"><code>googledrive</code> package</a> for managing Google files.</p>
 </div>
 </div>
 <div id="section-conclusion" class="section level2">
 <h2>Conclusion</h2>
-<p>We’ve covered atomic vectors in these exercises–next up we will review R’s S3 atomic vectors.</p>
+<p>We’ve covered three of the most common methods for importing data into RStudio:</p>
+<ol style="list-style-type: decimal">
+<li><code>readr</code> for plain text files<br />
+</li>
+<li><code>readxl</code> for Microsoft Excel files<br />
+</li>
+<li><code>googlesheets4</code> for reading Google Sheets</li>
+</ol>
+<p>We also covered how to export data with <code>writexl</code> and <code>openxlsx</code>.</p>
+<p>All of the information in this tutorial is in the data import cheatsheet from RStudio, which you can access <a href="https://www.rstudio.com/resources/cheatsheets/">here</a>.</p>
+<p>If you’d like the data files used in this tutorial, you can download them from the <a href="https://github.com/mjfrigaard/learnr-cheatsheets">Github repo</a>.</p>
 <div data-iframe-height="">
 
 </div>
