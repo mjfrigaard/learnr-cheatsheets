@@ -1,0 +1,432 @@
+---
+title: "*Introduction to command-line skills*"
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
+    df_print: paged
+    includes:
+      in_header: resizer.html
+runtime: shiny_prerendered
+description: >
+  Using the command line.
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(tidyverse)
+library(googlesheets4)
+library(skimr)
+library(knitr)
+library(readxl)
+library(reactable)
+library(writexl)
+library(openxlsx)
+# pipe url: https://bit.ly/01-file-txt ----
+# CSV url: https://bit.ly/01-file-csv ----
+# CSV2 url: https://bit.ly/01-file2-csv ----
+# TSV url: https://bit.ly/01-file-tsv ----
+# f1.csv: https://bit.ly/01-f1-csv ----
+# f2.csv: https://bit.ly/01-f2-csv ----
+# f3.csv: https://bit.ly/01-f3-csv ----
+knitr::opts_chunk$set(error = TRUE,
+  upload.fun = imgur_upload, 
+  exercise.cap = "code")
+```
+
+## What is the command line? 
+
+Most of the technology you interact with daily uses a graphical user interface (GUI but pronounced 'gooey'), allowing for interactive, point-and-click options. While GUIs certainly make using computers, tablets, and phones easier, they're also limiting. Software designers and engineers build the display architecture (icons, scroll bars, etc.) for users, and in doing so, they have to try and determine how a user intends to use their software. 
+
+```{r jarvis.gif, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="Jarvis is the best GUI"}
+# download.file(url = "https://i.pinimg.com/originals/97/87/77/978777f3dbbe42ed7be1b3c09912ca6c.gif", destfile = "rscs-01a-command-line/www/jarvis.gif")
+knitr::include_graphics(path = "www/jarvis.gif")
+```
+
+However, a command-line interface (CLI) gives users the power and precision of language (or text) to instruct the computer to perform desired tasks. These 'commands' are then chained into scripts or programs to achieve various outcomes. 
+
+> "*In the Beginning... Was the Command Line*" - Neal Town Stephenson
+
+You've probably seen a command-line interface in a movie or TV show at some point. It's usually full of cryptic commands in different colored text (think 'The Matrix' or 'Mr. Robot') 
+
+```{r mr.robot-1-4.gif, echo=FALSE, eval=TRUE, fig.align='center', out.height='60%', out.width='60%', fig.cap="My eyes hurt"}
+# fs::dir_create("rscs-01a-command-line/www")
+# download.file(url = "https://i.imgur.com/msmvE09.gif", destfile = "rscs-01a-command-line/www/mr-robot.gif")
+knitr::include_graphics(path = "www/mr-robot.gif")
+```
+
+You can think of the differences between the GUI and CLI as trading a lower learning curve and immediate feedback for power and precision. In the GUI, pointing and clicking is easier (provided you have all the options you need), and typing commands requires learning and entering the correct grammar and syntax (or enough of it to accomplish your objective).
+
+This tutorial is not a comprehensive guide to command-line skills (I'll provide a list of resources at the end if you'd like to learn more). Instead, these exercises will introduce you to the command-line and where it sits in the RStudio/open-source ecosystem. 
+
+*After all, RStudio gives us [access to a Terminal Pane](https://support.rstudio.com/hc/en-us/articles/115010737148-Using-the-RStudio-Terminal-in-the-RStudio-IDE) in the IDE, so we might as well use it!*
+
+```{r term-simple.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%', fig.cap="Thank you, RStudio"}
+# download.file(url = "https://support.rstudio.com/hc/article_attachments/360078724934/2020-07-09_10-42-term-simple.png", destfile = "rscs-01a-command-line/www/term-simple.png"
+# )
+knitr::include_graphics(path = "www/term-simple.png")
+```
+
+
+### What we'll cover 
+
+First, we're going to cover some background on Unix systems, why they're so powerful, and some of the different command-line interfaces you might see outside of this tutorial and RStudio's Terminal Pane. Second, we'll cover a few commands that expose you to how the command-line works. Third, we'll use the command-line to navigate folders and understand their structure (the command-line calls these 'directories'). Finally, we will cover how to view, open, create, move, copy, and yes--even delete--files. 
+
+## Unix Systems
+
+[Unix](https://en.wikipedia.org/wiki/Unix) refers to a family of operating systems that serve as a 'backbone' for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). You use Unix on most of the software you interact with on the internet, in phones and tablets, and it's in *some* desktop computers. 
+
+Microsoft Windows isn't based in Unix, but it's possible to [install a Linux environment](https://docs.microsoft.com/en-us/windows/wsl/about) (although not necessary if you're using RStudio on your local machine). 
+
+### The Unix Philosophy 
+
+> "*Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.*" — [Doug McIlory](https://en.wikipedia.org/wiki/Unix_philosophy#Doug_McIlroy_on_Unix_programming)
+
+The Unix command-line is powerful because of its strict adherence to a division of labor *and* the ability to combine commands to solve increasingly complex tasks. The term 'text streams' can be thought of as 'words and rules,' which means the command-line gives us the flexibility and power of **language**. 
+
+### Infinitely Extensible
+
+Consider the 26 characters in the English language. According to the Oxford dictionary, there are 171,476 words in current use. However, we can combine these words into an immeasurable number of sentences using grammar and syntax.
+
+Creating an infinite number of sentences by combining a finite number of characters and words is similar to how the Unix system works. All Unix commands work well with one another, and they play well with just about any kind of file you'll find on your computer. 
+
+## Terminals, Shells and prompts
+
+*Most* command-line interfaces open with a prompt. Below is an example prompt you'll see in the RStudio Terminal Pane:
+
+```{r prompt.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='90%', out.width='90%', fig.cap="RStudio Terminal Prompt"}
+knitr::include_graphics(path = "www/prompt.png")
+```
+
+If you're running macOS, you can open the Terminal application and you'll see a slightly different prompt: 
+
+```{r prompt-zsh.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%', fig.cap="macOS Terminal Prompt"}
+knitr::include_graphics(path = "www/prompt-zsh.png")
+```
+
+Both RStudio and macOS refer to the interface as the 'Terminal' because a terminal is a program that provides text-based access to the operating system.
+
+However, the prompt's are different because RStudio's Terminal uses [bash](https://www.gnu.org/software/bash/), which stands for 'Bourne Again SHell', while macOS uses [zsh](https://zsh.sourceforge.io/), or the 'Z shell' (BTW they are called shells because they are the '[the outermost layer around the operating system.](https://en.wikipedia.org/wiki/Shell_(computing))'
+
+### Code chunks (exercises)
+
+These tutorials are designed for interactive R code like in the chunk below: 
+
+```{r r-code, exercise=TRUE}
+# click Run Code
+Sys.Date()
+```
+
+However, we're going to be running `bash` chunks, which means instead of running R code, they'll be running command-line code. Try it for yourself: 
+
+```{bash example-bash, exercise=TRUE}
+# click Run Code
+date
+```
+
+Above, I said *most* terminals have a prompt because the exercises in this tutorial won't--you'll type commands directly into the code chunks. However, all of these commands will also work in your RStudio Terminal Pane (or another command-line interface).
+
+### A word of caution...
+
+It's important to note here that the command-line is not very forgiving. It **is** possible to unintentionally overwrite or delete your files with a single typo. But this is the trade-off we make for using the command-line--we can't use powerful tools without encountering some risk.
+
+> "Unix is like a chainsaw. Chainsaws are powerful tools, and make many difficult tasks like cutting through thick logs quite easy. Unfortunately, this power comes with danger: chainsaws can cut just as easily through your leg" - [Gary Bernhardt, in Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools (2015) by Vince Buffalo](https://bit.ly/3sVBSne)
+
+Don't worry though! We're working in your browser, so you won't be deleting any files from your computer. That means you can feel free to make mistakes and experiment in this environment without worrying too much about the consequences. Just be sure you understand what each command is doing before testing it out on your local machine.
+
+
+## Commands 
+
+Terminal commands (or command-line commands) can be a little cryptic and hard to interpret at first, but fortunately Unix has excellent [online documentation](https://unixguide.readthedocs.io/en/latest/unixcheatsheet/).
+
+### Who am I?
+
+We're going to start with a basic command: `whoami`
+
+```{bash whoami, exercise = TRUE}
+# type whoami below and click Run Code
+
+```
+
+The command `whoami` returns a value for the currently logged-in user. You didn't log into this tutorial, so it's returning `shiny` (which is the name of the R package for running these tutorials in your browser).
+
+### REPL 
+
+What you've just done is referred to as the [read–eval–print loop](https://www.computerhope.com/jargon/r/repl.htm), or REPL, and it's the underlying process of the command-line. Here is how it works: 
+
+1. **read** the command you've typed into the code chunk and create a data structure for it  
+2. **eval**uate what the command means and perform the associated operation (in our case, retrieving the value of the currently logged-in user) 
+3. **print** the value from **eval** results to the screen so we can see it  
+
+### Where am I?
+
+A great follow-up question is *where am I?*, but for this we'll enter `pwd`, which stands for 'print working directory.'
+
+```{bash pwd, exercise = TRUE}
+# type pwd below and click Run Code
+
+```
+
+### Working directory (local)
+
+The output from the previous exercise might look like gibberish. but that's because we're running the commands in the browser.  Let's switch over to RStudio and take a look at the Terminal pane again:
+
+```{r rs-terminal.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="RStudio's Terminal"}
+knitr::include_graphics(path = "www/rs-terminal.png")
+```
+
+Above we can see I am on `Martins-MacBook-Pro-2:` in the home directory (`~`), and I'm logged in as `mjfrigaard`. The black square I've highlighted is the cursor. 
+
+If I ran the `pwd` command in RStudio's Terminal Pane, I'd see the following:
+
+```{r pwd-01.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="Home Folder"}
+knitr::include_graphics(path = "www/pwd-01.png")
+```
+
+This tells me quite a few things I can already derive from the Terminal prompt (which machine I am using, who I am logged in as, and what directory I am in).
+
+Now I know *who* I am and *where* I am (which is always comforting). Next we'll cover how to start moving around and exploring.
+
+## Arguments 
+
+So far, we've been using basic commands in the Terminal (`whoami` and `pwd`). We're going to introduce another typical element in command-line programming, and that's the **argument**. 
+
+To move from folder-to-folder, we can use the `cd` command (change directory). Unlike the previous commands, `cd` takes a command and an argument. 
+
+Arguments come *after* commands, and they depend on what the command is going to do. 
+
+```bash
+$ command [argument]
+```
+
+Unix systems use a single period (`.`) to represent the current working directory, and two periods (`..`) to represent the **parent directory** (i.e. the folder directly 'above' your working folder). Use the code chunk below to move from your current working directory to the parent directory (one folder 'up').
+
+```{bash cd-dot-dot, exercise = TRUE, exercise.lines = 6}
+# print current working directory with 'pwd'
+
+# change directory with 'cd ..'
+
+# print new working directory with 'pwd'
+
+```
+
+Can you tell what's changed?
+
+### Folder structure
+
+The output should look something like this: 
+
+```bash
+# current working directory
+/tmp/RtmpeOV6tk/lrn-ex9b28e0a087
+
+# new working directory
+/tmp/RtmpeOV6tk
+```
+
+If we were to represent these locations hierarchically, we could do it like so: 
+
+```bash
+pwd
+/tmp
+    └──RtmpeOV6tk
+        └──lrn-ex9b28e0a087 # started here!
+```
+
+```bash
+cd .. # move 'up' one folder
+pwd
+/tmp
+    └──RtmpeOV6tk # ended here!
+        └──lrn-ex9b28e0a087 
+```
+
+The layout above is referred to a folder tree. These are very handy for quickly getting a sense of the ordered arrangement of each directory.  
+
+### Code chunk isolation
+
+What do you think would be displayed if you ran `pwd` in the code chunk below? Give it a try:
+
+```{bash cd-dot-dot-again, exercise = TRUE}
+# print current working directory with 'pwd'
+
+```
+
+If you were thinking it would be identical to the second `pwd` location above, your instincts were correct. Consider the following example in RStudio's Terminal on my local machine:
+
+1. Assume my current working directory is `~/projects/` (as indicated by the blue highlighted area in the Terminal pane) 
+
+```{r pwd-local-01.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="~/projects/"}
+knitr::include_graphics(path = "www/pwd-local-01.png")
+```
+
+2. If I change my working directory with `..`, I am in the home directory `~`.
+
+```{r pwd-local-02.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="~/"}
+knitr::include_graphics(path = "www/pwd-local-02.png")
+```
+
+3. When I check my current working directory again with `pwd`, I see the location has been permanently changed to `~`. 
+
+```{r pwd-local-03.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="Still ~/"}
+knitr::include_graphics(path = "www/pwd-local-03.png")
+```
+
+
+The reason this doesn't happen in this environment is because the code chunks are isolated from each other. So each new code chunk essentially 'resets' our location to the initial directory we printed with the first `pwd` command. This behavior might seem frustrating, but it also means we start with a 'clean slate' in each new code chunk! 
+
+
+## Listing things 
+
+Another helpful command-line tool is `ls`, which stands for 'List Files and Directories'. I like to think of `ls` as a follow up question to the output from `pwd`. While `pwd` tells you *where you are*, `ls` tells you what is located around you.
+
+```{bash list-files-dirs, exercise=TRUE,  exercise.lines = 6}
+# enter 'ls' and click Run Code
+
+```
+
+As you can see, your environment contains two items: `data` (a folder) and  `exercise.Rmd` (the R markdown document for these exercises). 
+
+### Options
+
+In the previous exercise we used `ls` to list the files and folders in our current working directory. We're going to add another element to `-a`, which is an **option** for listing any hidden files in a directory. 
+
+Options are added to commands like so: 
+
+```bash
+$ command [option] [argument] 
+```
+
+Use the code chunk below to list any hidden files in the current working directory: 
+
+```{bash ls-a, exercise=TRUE, ,  exercise.lines = 2}
+# enter 'ls -a' and click Run Code
+
+```
+
+We can see the two shortcuts we learned about above (`.` and `..`) are listed as hidden files. Typically, hidden files begin with a `.` (like `.gitignore` or `.RHistory`).
+
+This is helpful, but we often want to know more information about the files in a working directory. We can do this by adding the `-l` option (long listing format) to `ls`. 
+
+
+```{bash ls-l, exercise=TRUE, exercise.lines = 2}
+# enter 'ls -l' and click Run Code
+
+```
+
+The command-line also lets us combine options together. Use the code chunk below to view the file information in a long listing format for all the files in your current working directory (i.e. including the hidden files). 
+
+```{bash ls-la, exercise=TRUE, exercise.lines = 2}
+# enter 'ls -la' and click Run Code
+
+```
+
+A typical set of commands when working in a new Terminal is `whoami`, `pwd`, and `ls -la`. These three commands get you oriented to your permissions and surroundings.  
+
+## Creating things
+
+Now that we have some basic navigation skills down, we're going to create directories (folders) and files, view them, and add some content. Let's get started! 
+
+### Create a file 
+
+The command for creating a new file is `touch`. In the code chunk below, use the `touch` command to create a new file called `stash.txt`
+
+```{bash touch, exercise = TRUE, exercise.lines = 2}
+# enter 'touch stash.txt' and click Run Code
+
+```
+
+If this worked, you won't see anything...you might have noticed this behavior above with the `cd` command. I will stop here to emphasize an important point:
+
+> ***The command-line tends to keep to itself***
+
+Many commands work and without printing any evidence of the success to your screen. We'll often have to give another command to check and see if the previous command worked as intended. In this case, it's the `ls` command we learned above:
+
+```{bash touch-ls, exercise = TRUE, exercise.lines = 4}
+# re-enter 'touch stash.txt' 
+
+# enter 'ls' and click Run Code
+
+```
+
+*What else do you see?*
+
+The `touch` command will create a file if it doesn't exist. If the file does exist, `touch` will change the file timestamps. We can check the timestamps with `stat`
+
+```{bash stash-txt-error, exercise = TRUE}
+# enter 'stat stash.txt' and click Run Code
+
+```
+
+Why did we get an error? This is because in the `learnr` environment, each code chunk is it's own little self-contained environment. This means commands in previous chunks won't carry over to successive chunks (which makes it much safer to practice our command-line skills!)
+
+Run `stat stash.txt` again below (after creating it with `touch`)
+
+```{bash stash-txt-stat, exercise = TRUE}
+# re-enter 'touch stash.txt'
+
+# re-enter 'stat stash.txt' and click Run Code
+
+```
+
+In the output you should see something like the following: 
+
+```bash
+  File: stash.txt
+  Size: 0           Blocks: 0          IO Block: 4096   regular empty file
+Device: 1000f0h/1048816d    Inode: 242441014   Links: 1
+Access: (0664/-rw-rw-r--)  Uid: (10001/   shiny)   Gid: (10001/   shiny)
+Access: 2022-01-04 09:48:19.276836284 +0000
+Modify: 2022-01-04 09:48:19.276836284 +0000
+Change: 2022-01-04 09:48:19.276836284 +0000
+ Birth: -
+ ```
+ 
+ We can see this file has identical dates and times for `Access`, `Modify`, and `Change`. 
+
+<!-- 
+If you don’t want the touch command to create new files, use the -c (--no-create) option.
+
+To display the file status including the timestamps, use the stat command.
+
+For example, if the file file1 exist the following command will change the file timestamps otherwise, it will do nothing:
+
+touch -c file1
+-->
+
+### Create file content 
+
+`echo`
+
+### Print file contents 
+
+`cat` and `head` 
+
+### Create a directory
+
+The command for creating a new directory is `mkdir`. In the code chunk below, create a new folder called `foo`
+
+```{bash mkdir, exercise = TRUE}
+mkdir foo
+```
+
+
+
+```{bash mkdir-ls, exercise = TRUE}
+mkdir foo
+ls
+```
+
+## Unix pipes 
+
+## Download stuff from the web
+
+## Delete stuff 
+
+### Remove files 
+
+### Remove directories 
+
+
+ Steven Pinker gives an excellent description of the power of language in [Words and Rules](https://stevenpinker.com/files/pinker/files/edinburgh.pdf): 
+    "*In principle [the number of sentences] is infinite; in practice it can be crudely estimated by assessing the number of word choices possible at each point in a sentence (roughly, 10) and raising it to a power corresponding to the maximum length of a sentence a person is likely to produce and understand, say, 20. The number is 10^20 or about a hundred million trillion sentences.*" 

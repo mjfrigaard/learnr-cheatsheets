@@ -1,0 +1,14 @@
+name: rscs-01a-command-line
+title: rscs-01a-command-line
+username:
+account: mjfrigaard
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 5392278
+bundleId: 5432492
+url: https://mjfrigaard.shinyapps.io/rscs-01a-command-line/
+when: 1641289283.09207
+lastSyncTime: 1641289283.09208
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: polyglot.html|polyglot.Rmd|portal_mammals.sqlite|rscs-01a-command-line.html
