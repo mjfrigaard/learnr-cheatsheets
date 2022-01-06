@@ -303,13 +303,13 @@ Home Folder
 /tmp/RtmpeOV6tk</code></pre>
 <p>If we were to represent these locations hierarchically, we could do it like so:</p>
 <pre class="bash"><code>pwd
-/tmp
-    └──RtmpeOV6tk
+/tmp/
+  └──RtmpeOV6tk/
         └──lrn-ex9b28e0a087 # started here!</code></pre>
 <pre class="bash"><code>cd .. # move &#39;up&#39; one folder
 pwd
-/tmp
-    └──RtmpeOV6tk # ended here!
+/tmp/
+  └──RtmpeOV6tk/ # ended here!
         └──lrn-ex9b28e0a087 </code></pre>
 <p>The layout above is referred to a folder tree. These are very handy for quickly getting a sense of the ordered arrangement of each directory.</p>
 </div>
@@ -326,7 +326,7 @@ pwd
 <li>Assume my current working directory is <code>~/projects/</code> (as indicated by the blue highlighted area in the Terminal pane)</li>
 </ol>
 <div class="figure" style="text-align: center">
-<img src="www/pwd-local-01.png" alt="~/projects/" width="100%" height="100%" />
+<img src="www/pwd-local-01.png" alt="~/projects/" width="70%" height="70%" />
 <p class="caption">
 ~/projects/
 </p>
@@ -335,7 +335,7 @@ pwd
 <li>If I change my working directory with <code>..</code>, I am in the home directory <code>~</code>.</li>
 </ol>
 <div class="figure" style="text-align: center">
-<img src="www/pwd-local-02.png" alt="~/" width="100%" height="100%" />
+<img src="www/pwd-local-02.png" alt="~/" width="70%" height="70%" />
 <p class="caption">
 ~/
 </p>
@@ -344,7 +344,7 @@ pwd
 <li>When I check my current working directory again with <code>pwd</code>, I see the location has been permanently changed to <code>~</code>.</li>
 </ol>
 <div class="figure" style="text-align: center">
-<img src="www/pwd-local-03.png" alt="Still ~/" width="100%" height="100%" />
+<img src="www/pwd-local-03.png" alt="Still ~/" width="70%" height="70%" />
 <p class="caption">
 Still ~/
 </p>
@@ -355,7 +355,7 @@ Still ~/
 <div id="section-listing-things" class="section level2">
 <h2>Listing things</h2>
 <p>Another helpful command-line tool is <code>ls</code>, which stands for ‘List Files and Directories’. I like to think of <code>ls</code> as a follow up question to the output from <code>pwd</code>. While <code>pwd</code> tells you <em>where you are</em>, <code>ls</code> tells you what is located around you.</p>
-<div class="tutorial-exercise" data-label="list-files-dirs" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="6">
+<div class="tutorial-exercise" data-label="list-files-dirs" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="2">
 <pre class="text"><code># enter &#39;ls&#39; and click Run Code
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
@@ -411,14 +411,14 @@ Still ~/
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
 </div>
-<p><em>What else do you see?</em></p>
-<p>The <code>touch</code> command will create a file if it doesn’t exist. If the file does exist, <code>touch</code> will change the file timestamps. We can check the timestamps with <code>stat</code></p>
-<div class="tutorial-exercise" data-label="stash-txt-error" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<p>The <code>touch</code> command will create a file if it doesn’t exist. If the file does exist, <code>touch</code> will change the file time-stamps. We can check the time-stamps with the <code>stat</code> command.</p>
+<div class="tutorial-exercise" data-label="stash-txt-error" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="2">
 <pre class="text"><code># enter &#39;stat stash.txt&#39; and click Run Code
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
 </div>
-<p>Why did we get an error? This is because in the <code>learnr</code> environment, each code chunk is it’s own little self-contained environment. This means commands in previous chunks won’t carry over to successive chunks (which makes it much safer to practice our command-line skills!)</p>
+<p>Why did we get an error? As we said before, each code chunk is essentially ‘reset’ with only the <code>data</code> folder and the <code>exercise.Rmd</code> in the working directory.</p>
+<p>So any of the commands we enter (like <code>cd</code>) or things we create (like <code>stash.txt</code>) in previous chunks won’t carry over to successive chunks. Again, this might seem frustrating, but it just means we need to include multiple commands in the same chunk (it also means if we make mistakes in one code chunk, we can just proceed to the next!).</p>
 <p>Run <code>stat stash.txt</code> again below (after creating it with <code>touch</code>)</p>
 <div class="tutorial-exercise" data-label="stash-txt-stat" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code># re-enter &#39;touch stash.txt&#39;
@@ -436,7 +436,6 @@ Access: 2022-01-04 09:48:19.276836284 +0000
 Modify: 2022-01-04 09:48:19.276836284 +0000
 Change: 2022-01-04 09:48:19.276836284 +0000
  Birth: -</code></pre>
-<p>We can see this file has identical dates and times for <code>Access</code>, <code>Modify</code>, and <code>Change</code>.</p>
 <!-- 
 If you don’t want the touch command to create new files, use the -c (--no-create) option.
 
@@ -903,7 +902,7 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  exercise.cap = \"code\")"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "list-files-dirs", 
     code = "# enter 'ls' and click Run Code\n", opts = list(label = "\"list-files-dirs\"", 
-        exercise = "TRUE", exercise.lines = "6", engine = "\"bash\""), 
+        exercise = "TRUE", exercise.lines = "2", engine = "\"bash\""), 
     engine = "bash")), code_check = NULL, error_check = NULL, 
     check = NULL, solution = NULL, options = list(eval = FALSE, 
         echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
@@ -938,8 +937,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
                 stop("failed to upload ", file)
             structure(res$link[[1]], XML = res)
         }, exercise.cap = "code", label = "list-files-dirs", 
-        exercise = TRUE, exercise.lines = 6, code = c("# enter 'ls' and click Run Code", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "list-files-dirs, exercise=TRUE,  exercise.lines = 6, engine=\"bash\"", 
+        exercise = TRUE, exercise.lines = 2, code = c("# enter 'ls' and click Run Code", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "list-files-dirs, exercise=TRUE,  exercise.lines = 2, engine=\"bash\"", 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "bash"), class = "tutorial_exercise"))
 </script>
@@ -1264,13 +1263,13 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  exercise.cap = \"code\")"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "stash-txt-error", 
     code = "# enter 'stat stash.txt' and click Run Code\n", opts = list(
-        label = "\"stash-txt-error\"", exercise = "TRUE", engine = "\"bash\""), 
-    engine = "bash")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
+        label = "\"stash-txt-error\"", exercise = "TRUE", exercise.lines = "2", 
+        engine = "\"bash\""), engine = "bash")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "rscs-01a-command-line_files/figure-html/", 
@@ -1299,8 +1298,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
                 stop("failed to upload ", file)
             structure(res$link[[1]], XML = res)
         }, exercise.cap = "code", label = "stash-txt-error", 
-        exercise = TRUE, code = c("# enter 'stat stash.txt' and click Run Code", 
-        ""), out.width.px = 624, out.height.px = 384, params.src = "stash-txt-error, exercise = TRUE, engine=\"bash\"", 
+        exercise = TRUE, exercise.lines = 2, code = c("# enter 'stat stash.txt' and click Run Code", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "stash-txt-error, exercise = TRUE, exercise.lines = 2, engine=\"bash\"", 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "bash"), class = "tutorial_exercise"))
 </script>

@@ -74,9 +74,9 @@ First, we're going to cover some background on Unix systems, why they're so powe
 
 ## Unix Systems
 
-[Unix](https://en.wikipedia.org/wiki/Unix) refers to a family of operating systems that serve as a 'backbone' for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). You use Unix on most of the software you interact with on the internet, in phones and tablets, and it's in *some* desktop computers. 
+[Unix](https://en.wikipedia.org/wiki/Unix) refers to a family of operating systems that serve as a 'backbone' for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). They're the [dominant operating system](https://en.wikipedia.org/wiki/Usage_share_of_operating_systems#Supercomputers) for mainframes, web servers, phones and tablets, and even supercomputers. Throughout this tutorial, I'll use the term 'Unix' to refer to any 'Unix-like' operating system because they all give you access to the command line (which is another reason these tools are so powerful). 
 
-Microsoft Windows isn't based in Unix, but it's possible to [install a Linux environment](https://docs.microsoft.com/en-us/windows/wsl/about) (although not necessary if you're using RStudio on your local machine). 
+Microsoft Windows is the only exception here. Windows machines aren't based on Unix, but installing a Linux command-line tool [is possible](https://docs.microsoft.com/en-us/windows/wsl/about) (although not necessary if you're using RStudio on your local machine). 
 
 ### The Unix Philosophy 
 
@@ -84,7 +84,18 @@ Microsoft Windows isn't based in Unix, but it's possible to [install a Linux env
 
 The Unix command-line is powerful because of its strict adherence to a division of labor *and* the ability to combine commands to solve increasingly complex tasks. The term 'text streams' can be thought of as 'words and rules,' which means the command-line gives us the flexibility and power of **language**. 
 
-### Infinitely Extensible
+#### Do one thing, do it well
+
+The tools we're going to cover are concise and straightforward. All Unix commands have a similar structure, and each performs a specific task, which might seem to limit our ability to get much done. But you'll come to appreciate this strict division of labor. 
+
+Having simple, reliable tools that never fail can often come in handy when our other (more complicated) software isn't performing the specific tasks we need. For example, if you're having trouble downloading data onto your computer through the browser, you can pass the URL to the `curl` command like so: 
+
+```bash
+# download entire text file of Moby-Dick into data/moby-dick.txt 
+curl -S "https://www.gutenberg.org/files/2701/2701-0.txt" > data/moby-dick.txt
+```
+
+#### Work together
 
 Consider the 26 characters in the English language. According to the Oxford dictionary, there are 171,476 words in current use. However, we can combine these words into an immeasurable number of sentences using grammar and syntax.
 
@@ -228,16 +239,16 @@ If we were to represent these locations hierarchically, we could do it like so:
 
 ```bash
 pwd
-/tmp
-    └──RtmpeOV6tk
+/tmp/
+  └──RtmpeOV6tk/
         └──lrn-ex9b28e0a087 # started here!
 ```
 
 ```bash
 cd .. # move 'up' one folder
 pwd
-/tmp
-    └──RtmpeOV6tk # ended here!
+/tmp/
+  └──RtmpeOV6tk/ # ended here!
         └──lrn-ex9b28e0a087 
 ```
 
@@ -256,19 +267,19 @@ If you were thinking it would be identical to the second `pwd` location above, y
 
 1. Assume my current working directory is `~/projects/` (as indicated by the blue highlighted area in the Terminal pane) 
 
-```{r pwd-local-01.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="~/projects/"}
+```{r pwd-local-01.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='70%', out.width='70%', fig.cap="~/projects/"}
 knitr::include_graphics(path = "www/pwd-local-01.png")
 ```
 
 2. If I change my working directory with `..`, I am in the home directory `~`.
 
-```{r pwd-local-02.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="~/"}
+```{r pwd-local-02.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='70%', out.width='70%', fig.cap="~/"}
 knitr::include_graphics(path = "www/pwd-local-02.png")
 ```
 
 3. When I check my current working directory again with `pwd`, I see the location has been permanently changed to `~`. 
 
-```{r pwd-local-03.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='100%', out.width='100%', fig.cap="Still ~/"}
+```{r pwd-local-03.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='70%', out.width='70%', fig.cap="Still ~/"}
 knitr::include_graphics(path = "www/pwd-local-03.png")
 ```
 
@@ -280,7 +291,7 @@ The reason this doesn't happen in this environment is because the code chunks ar
 
 Another helpful command-line tool is `ls`, which stands for 'List Files and Directories'. I like to think of `ls` as a follow up question to the output from `pwd`. While `pwd` tells you *where you are*, `ls` tells you what is located around you.
 
-```{bash list-files-dirs, exercise=TRUE,  exercise.lines = 6}
+```{bash list-files-dirs, exercise=TRUE,  exercise.lines = 2}
 # enter 'ls' and click Run Code
 
 ```
@@ -349,16 +360,16 @@ Many commands work and without printing any evidence of the success to your scre
 
 ```
 
-*What else do you see?*
+The `touch` command will create a file if it doesn't exist. If the file does exist, `touch` will change the file time-stamps. We can check the time-stamps with the `stat` command.
 
-The `touch` command will create a file if it doesn't exist. If the file does exist, `touch` will change the file timestamps. We can check the timestamps with `stat`
-
-```{bash stash-txt-error, exercise = TRUE}
+```{bash stash-txt-error, exercise = TRUE, exercise.lines = 2}
 # enter 'stat stash.txt' and click Run Code
 
 ```
 
-Why did we get an error? This is because in the `learnr` environment, each code chunk is it's own little self-contained environment. This means commands in previous chunks won't carry over to successive chunks (which makes it much safer to practice our command-line skills!)
+Why did we get an error? As we said before, each code chunk is essentially 'reset' with only the `data` folder and the `exercise.Rmd` in the working directory.
+
+So any of the commands we enter (like `cd`) or things we create (like `stash.txt`) in previous chunks won't carry over to successive chunks. Again, this might seem frustrating, but it just means we need to include multiple commands in the same chunk (it also means if we make mistakes in one code chunk, we can just proceed to the next!).
 
 Run `stat stash.txt` again below (after creating it with `touch`)
 
@@ -382,7 +393,7 @@ Change: 2022-01-04 09:48:19.276836284 +0000
  Birth: -
  ```
  
- We can see this file has identical dates and times for `Access`, `Modify`, and `Change`. 
+
 
 <!-- 
 If you don’t want the touch command to create new files, use the -c (--no-create) option.
