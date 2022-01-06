@@ -95,7 +95,15 @@ Having simple, reliable tools that never fail can often come in handy when our o
 curl -S "https://www.gutenberg.org/files/2701/2701-0.txt" > data/moby-dick.txt
 ```
 
-#### Work together
+#### Working together
+
+All command-line tools are designed to be modular, which means they work in concert with one another. In the example above we downloaded the book Moby-Dick into our local `data/` folder in a file named, `moby-dick.txt`. 
+
+What if we wanted to count how many times the name `Ahab` occurs in this file? 
+
+```bash
+
+```
 
 Consider the 26 characters in the English language. According to the Oxford dictionary, there are 171,476 words in current use. However, we can combine these words into an immeasurable number of sentences using grammar and syntax.
 
