@@ -74,42 +74,163 @@ First, we're going to cover some background on Unix systems, why they're so powe
 
 ## Unix Systems
 
-[Unix](https://en.wikipedia.org/wiki/Unix) refers to a family of operating systems that serve as a 'backbone' for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). They're the [dominant operating system](https://en.wikipedia.org/wiki/Usage_share_of_operating_systems#Supercomputers) for mainframes, web servers, phones and tablets, and even supercomputers. Throughout this tutorial, I'll use the term 'Unix' to refer to any 'Unix-like' operating system because they all give you access to the command line (which is another reason these tools are so powerful). 
+[Unix](https://en.wikipedia.org/wiki/Unix) refers to a family of operating systems that serve as a 'backbone' for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). Linux and Unix-like systems are the [dominant operating system](https://en.wikipedia.org/wiki/Usage_share_of_operating_systems#Supercomputers) for mainframes, web servers, phones and tablets, and even supercomputers. Throughout this tutorial, I'll use the term 'Unix' to refer to both Linux or other Unix-like operating system because they all will have access to the command-line (which is another reason to have these skills!). 
 
-Microsoft Windows is the only exception here. Windows machines aren't based on Unix, but installing a Linux command-line tool [is possible](https://docs.microsoft.com/en-us/windows/wsl/about) (although not necessary if you're using RStudio on your local machine). 
+Microsoft Windows is the only exception here. Windows machines aren't based on Unix, but installing a Linux command-line tool [is possible](https://docs.microsoft.com/en-us/windows/wsl/about), although not necessary if you're using RStudio on your local machine.
 
 ### The Unix Philosophy 
 
 > "*Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.*" — [Doug McIlory](https://en.wikipedia.org/wiki/Unix_philosophy#Doug_McIlroy_on_Unix_programming)
 
-The Unix command-line is powerful because of its strict adherence to a division of labor *and* the ability to combine commands to solve increasingly complex tasks. The term 'text streams' can be thought of as 'words and rules,' which means the command-line gives us the flexibility and power of **language**. 
+The Unix command-line is powerful because of its strict adherence to a division of labor *and* the ability to combine commands to solve increasingly complex tasks. The term 'text streams' refers to using plain text formatted files (which are common in open source software, like R and RStudio).
 
 #### Do one thing, do it well
 
-The tools we're going to cover are concise and straightforward. All Unix commands have a similar structure, and each performs a specific task, which might seem to limit our ability to get much done. But you'll come to appreciate this strict division of labor. 
+Command-line tools typically perform a singular task, and their specificity might seem like it would limit our ability to get much done. But you'll come to appreciate this narrow scope, because each tool comes with a list of options for tweaking the command to customize it for your unique purpose.
 
-Having simple, reliable tools that never fail can often come in handy when our other (more complicated) software isn't performing the specific tasks we need. For example, if you're having trouble downloading data onto your computer through the browser, you can pass the URL to the `curl` command like so: 
+A complete list of options for each command is available in the documentation. Which you can access with the `man` command. 
+
+```bash
+man who
+```
+
+```
+WHO(1)                       General Commands Manual                       WHO(1)
+
+NAME
+     who – display who is logged in
+
+SYNOPSIS
+     who [-abdHlmpqrsTtu] [file]
+     who am i
+
+DESCRIPTION
+     The who utility displays a list of all users currently logged on, showing
+     for each user the login name, tty name, the date and time of login, and
+     hostname if not local.
+
+     Available options:
+
+     -a    Same as -bdlprTtu.
+
+     -b    Time of last system boot.
+
+     -d    Print dead processes.
+
+     -H    Write column headings above the regular output.
+
+     -l    Print system login processes (unsupported).
+
+     -m    Only print information about the current terminal.  This is the POSIX
+           way of saying who am i.
+
+     -p    Print active processes spawned by launchd(8) (unsupported).
+
+     -q    “Quick mode”: List only the names and the number of users currently
+           logged on.  When this option is used, all other options are ignored.
+
+     -r    Print the current runlevel.  This is meaningless on Mac OS X.
+
+     -s    List only the name, line and time fields.  This is the default.
+
+     -T    Print a character after the user name indicating the state of the
+           terminal line: ‘+’ if the terminal is writable; ‘-’ if it is not; and
+           ‘?’ if a bad line is encountered.
+
+     -t    Print last system clock change (unsupported).
+
+     -u    Print the idle time for each user, and the associated process ID.
+
+     am I  Returns the invoker's real user name.
+
+     file  By default, who gathers information from the file /var/run/utmpx.  An
+           alternative file may be specified.
+
+FILES
+     /var/run/utmpx
+
+SEE ALSO
+     last(1), mesg(1), users(1), getuid(2), utmpx(5)
+
+STANDARDS
+     The who utility conforms to IEEE Std 1003.1-2001 (“POSIX.1”).
+
+HISTORY
+     A who utility appeared in Version 6 AT&T UNIX.
+```
+
+
+Having simple, reliable tools that never fail can also come in handy when our other GUI-based software isn't performing a specific task we need. For example, if you're having trouble downloading data onto your computer through the browser, you can pass the URL to the `curl` command like so: 
 
 ```bash
 # download entire text file of Moby-Dick into data/moby-dick.txt 
-curl -S "https://www.gutenberg.org/files/2701/2701-0.txt" > data/moby-dick.txt
+curl "https://www.gutenberg.org/files/2701/2701-0.txt" > data/moby-dick.txt
 ```
+
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1246k  100 1246k    0     0  9587k      0 --:--:-- --:--:-- --:--:-- 9587k
+```
+
+The `curl` command allows us to download data from a URL and save it to a local file (in `data/moby-dick.txt`). Understanding what each command does is the first step in mastering command-line skills. 
 
 #### Working together
 
-All command-line tools are designed to be modular, which means they work in concert with one another. In the example above we downloaded the book Moby-Dick into our local `data/` folder in a file named, `moby-dick.txt`. 
+All command-line tools are modular, which means they work best when connected together. In the example above, we downloaded the book Moby-Dick into our local `data/` folder in a file named `moby-dick.txt` using the `>` operator.
 
-What if we wanted to count how many times the name `Ahab` occurs in this file? 
+Now that we've downloaded the file, let's count how many times the name `Ahab` occurs. We can do this by combining two more command-line tools (`grep` and `wc`) with the Unix pipe (`|`). The additional characters you see are options (`-o`, `i`, and `-l`).
 
 ```bash
-
+# count the number of times 
+grep -o -i "Ahab" data/moby-dick.txt | wc -l
 ```
 
-Consider the 26 characters in the English language. According to the Oxford dictionary, there are 171,476 words in current use. However, we can combine these words into an immeasurable number of sentences using grammar and syntax.
+```
+518
+```
 
-Creating an infinite number of sentences by combining a finite number of characters and words is similar to how the Unix system works. All Unix commands work well with one another, and they play well with just about any kind of file you'll find on your computer. 
+Being able to chain tools together requires us to know what each command does. Armed with this knowledge, we can connect the commands into a 'pipeline.' This practice makes it easier to find bugs and inspect intermediate results. 
 
-## Terminals, Shells and prompts
+#### Text as a universal interface
+
+The `grep` and `wc` commands worked with the `moby-dick.txt` file because the file is formatted in plain text. Most command-line tools are designed to work with plain text files. Examples include markdown files (`.md`), comma-separated values files (`.csv`), JavaScript Object Notation (`.json`), Extensible Markup Language (`.xml`) and HyperText Markup Language (`.html`).
+
+Fortunately for us, these files are also commonly used in R programming. For example, we can use the command-line to quickly create new files and add a few lines of content faster than we can do with a GUI: 
+
+```bash
+echo "Text of 'Moby-Dick' from Project Gutenberg (https://www.gutenberg.org/)" > data/README.md
+```
+
+The commands above make a `README.md` file for the `moby-dick.txt` file in our `data` folder. Below is the file we created in RStudio:
+
+```{r readme-rstudio.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%', fig.cap="New README.md file"}
+knitr::include_graphics(path = "www/readme-rstudio.png")
+```
+
+Used this way, even having a few command-line tools at your disposal can supplement your R skills. 
+
+## Terminals, Shells and Prompts
+
+As with anything technical, there is some terminology to cover before we can move into writing commands. Below is a simplistic diagram of how the Unix architecture works:
+
+```{r unix-architecture.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='70%', out.width='70%', fig.cap="Unix Architecture"}
+knitr::include_graphics(path = "www/unix-architecture.png")
+```
+
+**Command-line tools**: these are the text commands you'll learn in this tutorial. They have the following structure: 
+
+```bash
+command [option] [argument]
+```
+
+**Terminals**: an emulator program that provides a text-based interface to type commands into. RStudio comes with a Terminal pane, and so do Unix-based operating systems (if you're using macOS, it's the application in the Utilities folder). 
+
+**Shells**: Shells take the commands we type into the Terminal and pass them off into into the magical realm of the operating system, where they do whatever we've asked of them. There are multiple types of shells (which we cover below).
+
+### Terminals 
 
 *Most* command-line interfaces open with a prompt. Below is an example prompt you'll see in the RStudio Terminal Pane:
 
@@ -117,15 +238,15 @@ Creating an infinite number of sentences by combining a finite number of charact
 knitr::include_graphics(path = "www/prompt.png")
 ```
 
-If you're running macOS, you can open the Terminal application and you'll see a slightly different prompt: 
+If you're running macOS, you also have access to a Terminal application: 
 
 ```{r prompt-zsh.png, echo=FALSE, eval=TRUE, fig.align='center', out.height='80%', out.width='80%', fig.cap="macOS Terminal Prompt"}
 knitr::include_graphics(path = "www/prompt-zsh.png")
 ```
 
-Both RStudio and macOS refer to the interface as the 'Terminal' because a terminal is a program that provides text-based access to the operating system.
+### Shells & Prompts
 
-However, the prompt's are different because RStudio's Terminal uses [bash](https://www.gnu.org/software/bash/), which stands for 'Bourne Again SHell', while macOS uses [zsh](https://zsh.sourceforge.io/), or the 'Z shell' (BTW they are called shells because they are the '[the outermost layer around the operating system.](https://en.wikipedia.org/wiki/Shell_(computing))'
+You might have noticed the prompts are different (`$` vs. `%`). RStudio's Terminal uses [bash](https://www.gnu.org/software/bash/), which stands for 'Bourne Again SHell', while macOS uses [zsh](https://zsh.sourceforge.io/), or the 'Z shell' (BTW they are called shells because they are the '[the outermost layer around the operating system.](https://en.wikipedia.org/wiki/Shell_(computing))'
 
 ### Code chunks (exercises)
 
@@ -160,14 +281,14 @@ Terminal commands (or command-line commands) can be a little cryptic and hard to
 
 ### Who am I?
 
-We're going to start with a basic command: `whoami`
+We're going to start with a basic command: `who`
 
-```{bash whoami, exercise = TRUE}
-# type whoami below and click Run Code
+```{bash who, exercise = TRUE, exercise.lines = 2}
+# type who below and click Run Code
 
 ```
 
-The command `whoami` returns a value for the currently logged-in user. You didn't log into this tutorial, so it's returning `shiny` (which is the name of the R package for running these tutorials in your browser).
+The command `who` returns a value for the currently logged-in user. You didn't log into this tutorial, so it's returning `shiny` (which is the name of the R package for running these tutorials in your browser).
 
 ### REPL 
 
@@ -181,7 +302,7 @@ What you've just done is referred to as the [read–eval–print loop](https://w
 
 A great follow-up question is *where am I?*, but for this we'll enter `pwd`, which stands for 'print working directory.'
 
-```{bash pwd, exercise = TRUE}
+```{bash pwd, exercise = TRUE, exercise.lines = 2}
 # type pwd below and click Run Code
 
 ```
@@ -208,7 +329,7 @@ Now I know *who* I am and *where* I am (which is always comforting). Next we'll 
 
 ## Arguments 
 
-So far, we've been using basic commands in the Terminal (`whoami` and `pwd`). We're going to introduce another typical element in command-line programming, and that's the **argument**. 
+So far, we've been using basic commands in the Terminal (`who` and `pwd`). We're going to introduce another typical element in command-line programming, and that's the **argument**. 
 
 To move from folder-to-folder, we can use the `cd` command (change directory). Unlike the previous commands, `cd` takes a command and an argument. 
 
@@ -340,7 +461,7 @@ The command-line also lets us combine options together. Use the code chunk below
 
 ```
 
-A typical set of commands when working in a new Terminal is `whoami`, `pwd`, and `ls -la`. These three commands get you oriented to your permissions and surroundings.  
+A typical set of commands when working in a new Terminal is `who`, `pwd`, and `ls -la`. These three commands get you oriented to your permissions and surroundings.  
 
 ## Creating things
 

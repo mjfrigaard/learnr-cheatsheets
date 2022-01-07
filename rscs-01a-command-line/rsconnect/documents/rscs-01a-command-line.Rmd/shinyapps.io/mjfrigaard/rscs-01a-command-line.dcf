@@ -5,10 +5,10 @@ account: mjfrigaard
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 5392278
-bundleId: 5441521
+bundleId: 5442602
 url: https://mjfrigaard.shinyapps.io/rscs-01a-command-line/
-when: 1641500213.41319
-lastSyncTime: 1641500213.4132
+when: 1641529772.03044
+lastSyncTime: 1641529772.03045
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: polyglot.html|polyglot.Rmd|portal_mammals.sqlite|rscs-01a-command-line.html
+ignoredFiles: img/.DS_Store|img/command-line-tools.drawio|polyglot.html|polyglot.Rmd|portal_mammals.sqlite|rscs-01a-command-line.html

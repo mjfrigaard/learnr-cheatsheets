@@ -165,23 +165,131 @@ Thank you, RStudio
 </div>
 <div id="section-unix-systems" class="section level2">
 <h2>Unix Systems</h2>
-<p><a href="https://en.wikipedia.org/wiki/Unix">Unix</a> refers to a family of operating systems that serve as a ‘backbone’ for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). You use Unix on most of the software you interact with on the internet, in phones and tablets, and it’s in <em>some</em> desktop computers.</p>
-<p>Microsoft Windows isn’t based in Unix, but it’s possible to <a href="https://docs.microsoft.com/en-us/windows/wsl/about">install a Linux environment</a> (although not necessary if you’re using RStudio on your local machine).</p>
+<p><a href="https://en.wikipedia.org/wiki/Unix">Unix</a> refers to a family of operating systems that serve as a ‘backbone’ for Linux (Android, Chrome OS) and Darwin (macOS, iOS, watchOS, tvOS, audioOS, iPadOS). Linux and Unix-like systems are the <a href="https://en.wikipedia.org/wiki/Usage_share_of_operating_systems#Supercomputers">dominant operating system</a> for mainframes, web servers, phones and tablets, and even supercomputers. Throughout this tutorial, I’ll use the term ‘Unix’ to refer to both Linux or other Unix-like operating system because they all will have access to the command-line (which is another reason to have these skills!).</p>
+<p>Microsoft Windows is the only exception here. Windows machines aren’t based on Unix, but installing a Linux command-line tool <a href="https://docs.microsoft.com/en-us/windows/wsl/about">is possible</a>, although not necessary if you’re using RStudio on your local machine.</p>
 <div id="section-the-unix-philosophy" class="section level3">
 <h3>The Unix Philosophy</h3>
 <blockquote>
 <p>“<em>Write programs that do one thing and do it well. Write programs to work together. Write programs to handle text streams, because that is a universal interface.</em>” — <a href="https://en.wikipedia.org/wiki/Unix_philosophy#Doug_McIlroy_on_Unix_programming">Doug McIlory</a></p>
 </blockquote>
-<p>The Unix command-line is powerful because of its strict adherence to a division of labor <em>and</em> the ability to combine commands to solve increasingly complex tasks. The term ‘text streams’ can be thought of as ‘words and rules,’ which means the command-line gives us the flexibility and power of <strong>language</strong>.</p>
+<p>The Unix command-line is powerful because of its strict adherence to a division of labor <em>and</em> the ability to combine commands to solve increasingly complex tasks. The term ‘text streams’ refers to using plain text formatted files (which are common in open source software, like R and RStudio).</p>
+<div id="section-do-one-thing-do-it-well" class="section level4">
+<h4>Do one thing, do it well</h4>
+<p>Command-line tools typically perform a singular task, and their specificity might seem like it would limit our ability to get much done. But you’ll come to appreciate this narrow scope, because each tool comes with a list of options for tweaking the command to customize it for your unique purpose.</p>
+<p>A complete list of options for each command is available in the documentation. Which you can access with the <code>man</code> command.</p>
+<pre class="bash"><code>man who</code></pre>
+<pre><code>WHO(1)                       General Commands Manual                       WHO(1)
+
+NAME
+     who – display who is logged in
+
+SYNOPSIS
+     who [-abdHlmpqrsTtu] [file]
+     who am i
+
+DESCRIPTION
+     The who utility displays a list of all users currently logged on, showing
+     for each user the login name, tty name, the date and time of login, and
+     hostname if not local.
+
+     Available options:
+
+     -a    Same as -bdlprTtu.
+
+     -b    Time of last system boot.
+
+     -d    Print dead processes.
+
+     -H    Write column headings above the regular output.
+
+     -l    Print system login processes (unsupported).
+
+     -m    Only print information about the current terminal.  This is the POSIX
+           way of saying who am i.
+
+     -p    Print active processes spawned by launchd(8) (unsupported).
+
+     -q    “Quick mode”: List only the names and the number of users currently
+           logged on.  When this option is used, all other options are ignored.
+
+     -r    Print the current runlevel.  This is meaningless on Mac OS X.
+
+     -s    List only the name, line and time fields.  This is the default.
+
+     -T    Print a character after the user name indicating the state of the
+           terminal line: ‘+’ if the terminal is writable; ‘-’ if it is not; and
+           ‘?’ if a bad line is encountered.
+
+     -t    Print last system clock change (unsupported).
+
+     -u    Print the idle time for each user, and the associated process ID.
+
+     am I  Returns the invoker&#39;s real user name.
+
+     file  By default, who gathers information from the file /var/run/utmpx.  An
+           alternative file may be specified.
+
+FILES
+     /var/run/utmpx
+
+SEE ALSO
+     last(1), mesg(1), users(1), getuid(2), utmpx(5)
+
+STANDARDS
+     The who utility conforms to IEEE Std 1003.1-2001 (“POSIX.1”).
+
+HISTORY
+     A who utility appeared in Version 6 AT&amp;T UNIX.</code></pre>
+<p>Having simple, reliable tools that never fail can also come in handy when our other GUI-based software isn’t performing a specific task we need. For example, if you’re having trouble downloading data onto your computer through the browser, you can pass the URL to the <code>curl</code> command like so:</p>
+<pre class="bash"><code># download entire text file of Moby-Dick into data/moby-dick.txt 
+curl &quot;https://www.gutenberg.org/files/2701/2701-0.txt&quot; &gt; data/moby-dick.txt</code></pre>
+<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1246k  100 1246k    0     0  9587k      0 --:--:-- --:--:-- --:--:-- 9587k</code></pre>
+<p>The <code>curl</code> command allows us to download data from a URL and save it to a local file (in <code>data/moby-dick.txt</code>). Understanding what each command does is the first step in mastering command-line skills.</p>
 </div>
-<div id="section-infinitely-extensible" class="section level3">
-<h3>Infinitely Extensible</h3>
-<p>Consider the 26 characters in the English language. According to the Oxford dictionary, there are 171,476 words in current use. However, we can combine these words into an immeasurable number of sentences using grammar and syntax.</p>
-<p>Creating an infinite number of sentences by combining a finite number of characters and words is similar to how the Unix system works. All Unix commands work well with one another, and they play well with just about any kind of file you’ll find on your computer.</p>
+<div id="section-working-together" class="section level4">
+<h4>Working together</h4>
+<p>All command-line tools are modular, which means they work best when connected together. In the example above, we downloaded the book Moby-Dick into our local <code>data/</code> folder in a file named <code>moby-dick.txt</code> using the <code>&gt;</code> operator.</p>
+<p>Now that we’ve downloaded the file, let’s count how many times the name <code>Ahab</code> occurs. We can do this by combining two more command-line tools (<code>grep</code> and <code>wc</code>) with the Unix pipe (<code>|</code>). The additional characters you see are options (<code>-o</code>, <code>i</code>, and <code>-l</code>).</p>
+<pre class="bash"><code># count the number of times 
+grep -o -i &quot;Ahab&quot; data/moby-dick.txt | wc -l</code></pre>
+<pre><code>518</code></pre>
+<p>Being able to chain tools together requires us to know what each command does. Armed with this knowledge, we can connect the commands into a ‘pipeline.’ This practice makes it easier to find bugs and inspect intermediate results.</p>
+</div>
+<div id="section-text-as-a-universal-interface" class="section level4">
+<h4>Text as a universal interface</h4>
+<p>The <code>grep</code> and <code>wc</code> commands worked with the <code>moby-dick.txt</code> file because the file is formatted in plain text. Most command-line tools are designed to work with plain text files. Examples include markdown files (<code>.md</code>), comma-separated values files (<code>.csv</code>), JavaScript Object Notation (<code>.json</code>), Extensible Markup Language (<code>.xml</code>) and HyperText Markup Language (<code>.html</code>).</p>
+<p>Fortunately for us, these files are also commonly used in R programming. For example, we can use the command-line to quickly create new files and add a few lines of content faster than we can do with a GUI:</p>
+<pre class="bash"><code>echo &quot;Text of &#39;Moby-Dick&#39; from Project Gutenberg (https://www.gutenberg.org/)&quot; &gt; data/README.md</code></pre>
+<p>The commands above make a <code>README.md</code> file for the <code>moby-dick.txt</code> file in our <code>data</code> folder. Below is the file we created in RStudio:</p>
+<div class="figure" style="text-align: center">
+<img src="www/readme-rstudio.png" alt="New README.md file" width="80%" height="80%" />
+<p class="caption">
+New README.md file
+</p>
+</div>
+<p>Used this way, even having a few command-line tools at your disposal can supplement your R skills.</p>
+</div>
 </div>
 </div>
 <div id="section-terminals-shells-and-prompts" class="section level2">
-<h2>Terminals, Shells and prompts</h2>
+<h2>Terminals, Shells and Prompts</h2>
+<p>As with anything technical, there is some terminology to cover before we can move into writing commands. Below is a simplistic diagram of how the Unix architecture works:</p>
+<div class="figure" style="text-align: center">
+<img src="www/unix-architecture.png" alt="Unix Architecture" width="70%" height="70%" />
+<p class="caption">
+Unix Architecture
+</p>
+</div>
+<p><strong>Command-line tools</strong>: these are the text commands you’ll learn in this tutorial. They have the following structure:</p>
+<pre class="bash"><code>command [option] [argument]</code></pre>
+<p><strong>Terminals</strong>: an emulator program that provides a text-based interface to type commands into. RStudio comes with a Terminal pane, and so do Unix-based operating systems (if you’re using macOS, it’s the application in the Utilities folder).</p>
+<p><strong>Shells</strong>: Shells take the commands we type into the Terminal and pass them off into into the magical realm of the operating system, where they do whatever we’ve asked of them. There are multiple types of shells (which we cover below).</p>
+<div id="section-terminals" class="section level3">
+<h3>Terminals</h3>
 <p><em>Most</em> command-line interfaces open with a prompt. Below is an example prompt you’ll see in the RStudio Terminal Pane:</p>
 <div class="figure" style="text-align: center">
 <img src="www/prompt.png" alt="RStudio Terminal Prompt" width="90%" height="90%" />
@@ -189,15 +297,18 @@ Thank you, RStudio
 RStudio Terminal Prompt
 </p>
 </div>
-<p>If you’re running macOS, you can open the Terminal application and you’ll see a slightly different prompt:</p>
+<p>If you’re running macOS, you also have access to a Terminal application:</p>
 <div class="figure" style="text-align: center">
 <img src="www/prompt-zsh.png" alt="macOS Terminal Prompt" width="80%" height="80%" />
 <p class="caption">
 macOS Terminal Prompt
 </p>
 </div>
-<p>Both RStudio and macOS refer to the interface as the ‘Terminal’ because a terminal is a program that provides text-based access to the operating system.</p>
-<p>However, the prompt’s are different because RStudio’s Terminal uses <a href="https://www.gnu.org/software/bash/">bash</a>, which stands for ‘Bourne Again SHell’, while macOS uses <a href="https://zsh.sourceforge.io/">zsh</a>, or the ‘Z shell’ (BTW they are called shells because they are the ‘<a href="https://en.wikipedia.org/wiki/Shell_(computing)">the outermost layer around the operating system.</a>’</p>
+</div>
+<div id="section-shells-prompts" class="section level3">
+<h3>Shells &amp; Prompts</h3>
+<p>You might have noticed the prompts are different (<code>$</code> vs. <code>%</code>). RStudio’s Terminal uses <a href="https://www.gnu.org/software/bash/">bash</a>, which stands for ‘Bourne Again SHell’, while macOS uses <a href="https://zsh.sourceforge.io/">zsh</a>, or the ‘Z shell’ (BTW they are called shells because they are the ‘<a href="https://en.wikipedia.org/wiki/Shell_(computing)">the outermost layer around the operating system.</a>’</p>
+</div>
 <div id="section-code-chunks-exercises" class="section level3">
 <h3>Code chunks (exercises)</h3>
 <p>These tutorials are designed for interactive R code like in the chunk below:</p>
@@ -228,13 +339,13 @@ date</code></pre>
 <p>Terminal commands (or command-line commands) can be a little cryptic and hard to interpret at first, but fortunately Unix has excellent <a href="https://unixguide.readthedocs.io/en/latest/unixcheatsheet/">online documentation</a>.</p>
 <div id="section-who-am-i" class="section level3">
 <h3>Who am I?</h3>
-<p>We’re going to start with a basic command: <code>whoami</code></p>
-<div class="tutorial-exercise" data-label="whoami" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
-<pre class="text"><code># type whoami below and click Run Code
+<p>We’re going to start with a basic command: <code>who</code></p>
+<div class="tutorial-exercise" data-label="who" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="2">
+<pre class="text"><code># type who below and click Run Code
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
 </div>
-<p>The command <code>whoami</code> returns a value for the currently logged-in user. You didn’t log into this tutorial, so it’s returning <code>shiny</code> (which is the name of the R package for running these tutorials in your browser).</p>
+<p>The command <code>who</code> returns a value for the currently logged-in user. You didn’t log into this tutorial, so it’s returning <code>shiny</code> (which is the name of the R package for running these tutorials in your browser).</p>
 </div>
 <div id="section-repl" class="section level3">
 <h3>REPL</h3>
@@ -249,7 +360,7 @@ date</code></pre>
 <div id="section-where-am-i" class="section level3">
 <h3>Where am I?</h3>
 <p>A great follow-up question is <em>where am I?</em>, but for this we’ll enter <code>pwd</code>, which stands for ‘print working directory.’</p>
-<div class="tutorial-exercise" data-label="pwd" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<div class="tutorial-exercise" data-label="pwd" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="2">
 <pre class="text"><code># type pwd below and click Run Code
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
@@ -278,7 +389,7 @@ Home Folder
 </div>
 <div id="section-arguments" class="section level2">
 <h2>Arguments</h2>
-<p>So far, we’ve been using basic commands in the Terminal (<code>whoami</code> and <code>pwd</code>). We’re going to introduce another typical element in command-line programming, and that’s the <strong>argument</strong>.</p>
+<p>So far, we’ve been using basic commands in the Terminal (<code>who</code> and <code>pwd</code>). We’re going to introduce another typical element in command-line programming, and that’s the <strong>argument</strong>.</p>
 <p>To move from folder-to-folder, we can use the <code>cd</code> command (change directory). Unlike the previous commands, <code>cd</code> takes a command and an argument.</p>
 <p>Arguments come <em>after</em> commands, and they depend on what the command is going to do.</p>
 <pre class="bash"><code>$ command [argument]</code></pre>
@@ -385,7 +496,7 @@ Still ~/
 </code></pre>
 <script type="application/json" data-ui-opts="1">{"engine":"bash","has_checker":false,"caption":"code"}</script>
 </div>
-<p>A typical set of commands when working in a new Terminal is <code>whoami</code>, <code>pwd</code>, and <code>ls -la</code>. These three commands get you oriented to your permissions and surroundings.</p>
+<p>A typical set of commands when working in a new Terminal is <code>who</code>, <code>pwd</code>, and <code>ls -la</code>. These three commands get you oriented to your permissions and surroundings.</p>
 </div>
 </div>
 <div id="section-creating-things" class="section level2">
@@ -642,9 +753,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-`tutorial-exercise-whoami-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-whoami-code-editor`)), session)
-output$`tutorial-exercise-whoami-output` <- renderUI({
-  `tutorial-exercise-whoami-result`()
+`tutorial-exercise-who-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-who-code-editor`)), session)
+output$`tutorial-exercise-who-output` <- renderUI({
+  `tutorial-exercise-who-result`()
 })
 </script>
  
@@ -658,15 +769,15 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "# f2.csv: https://bit.ly/01-f2-csv ----", "# f3.csv: https://bit.ly/01-f3-csv ----", 
 "knitr::opts_chunk$set(error = TRUE,", "  upload.fun = imgur_upload, ", 
 "  exercise.cap = \"code\")"), chunk_opts = list(label = "setup", 
-    include = FALSE)), setup = NULL, chunks = list(list(label = "whoami", 
-    code = "# type whoami below and click Run Code\n", opts = list(
-        label = "\"whoami\"", exercise = "TRUE", engine = "\"bash\""), 
-    engine = "bash")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
+    include = FALSE)), setup = NULL, chunks = list(list(label = "who", 
+    code = "# type who below and click Run Code\n", opts = list(
+        label = "\"who\"", exercise = "TRUE", exercise.lines = "2", 
+        engine = "\"bash\""), engine = "bash")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "rscs-01a-command-line_files/figure-html/", 
@@ -694,9 +805,9 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
             if (is.null(res$link[[1]])) 
                 stop("failed to upload ", file)
             structure(res$link[[1]], XML = res)
-        }, exercise.cap = "code", label = "whoami", exercise = TRUE, 
-        code = c("# type whoami below and click Run Code", ""
-        ), out.width.px = 624, out.height.px = 384, params.src = "whoami, exercise = TRUE, engine=\"bash\"", 
+        }, exercise.cap = "code", label = "who", exercise = TRUE, 
+        exercise.lines = 2, code = c("# type who below and click Run Code", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "who, exercise = TRUE, exercise.lines = 2, engine=\"bash\"", 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "bash"), class = "tutorial_exercise"))
 </script>
@@ -720,13 +831,13 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
 "  exercise.cap = \"code\")"), chunk_opts = list(label = "setup", 
     include = FALSE)), setup = NULL, chunks = list(list(label = "pwd", 
     code = "# type pwd below and click Run Code\n", opts = list(
-        label = "\"pwd\"", exercise = "TRUE", engine = "\"bash\""), 
-    engine = "bash")), code_check = NULL, error_check = NULL, 
-    check = NULL, solution = NULL, options = list(eval = FALSE, 
-        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
-        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
-        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
-        cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
+        label = "\"pwd\"", exercise = "TRUE", exercise.lines = "2", 
+        engine = "\"bash\""), engine = "bash")), code_check = NULL, 
+    error_check = NULL, check = NULL, solution = NULL, options = list(
+        eval = FALSE, echo = TRUE, results = "markup", tidy = FALSE, 
+        tidy.opts = NULL, collapse = FALSE, prompt = FALSE, comment = NA, 
+        highlight = FALSE, size = "normalsize", background = "#F7F7F7", 
+        strip.white = TRUE, cache = 0, cache.path = "rscs-01a-command-line_cache/html/", 
         cache.vars = NULL, cache.lazy = TRUE, dependson = NULL, 
         autodep = FALSE, cache.rebuild = FALSE, fig.keep = "high", 
         fig.show = "asis", fig.align = "default", fig.path = "rscs-01a-command-line_files/figure-html/", 
@@ -755,8 +866,8 @@ learnr:::store_exercise_cache(structure(list(global_setup = structure(c("library
                 stop("failed to upload ", file)
             structure(res$link[[1]], XML = res)
         }, exercise.cap = "code", label = "pwd", exercise = TRUE, 
-        code = c("# type pwd below and click Run Code", ""), 
-        out.width.px = 624, out.height.px = 384, params.src = "pwd, exercise = TRUE, engine=\"bash\"", 
+        exercise.lines = 2, code = c("# type pwd below and click Run Code", 
+        ""), out.width.px = 624, out.height.px = 384, params.src = "pwd, exercise = TRUE, exercise.lines = 2, engine=\"bash\"", 
         exercise.df_print = "paged", exercise.checker = "NULL"), 
     engine = "bash"), class = "tutorial_exercise"))
 </script>
