@@ -550,13 +550,13 @@ The `touch` command will create a file if it doesn't exist. If the file does exi
 
 ```
 
-Why did we get an error? As we said before, each code chunk is essentially 'reset' with only the `data` folder and the `exercise.Rmd` in the working directory.
+***Why did we get an error?*** As we said before, each code chunk is essentially 'reset' with only the `data` folder and the `exercise.Rmd` in the working directory. So, any of the commands we enter (like `cd` or `touch`) or things we create (like `stash.txt`) in previous chunks won't carry over to successive chunks. 
 
-So any of the commands we enter (like `cd`) or things we create (like `stash.txt`) in previous chunks won't carry over to successive chunks. Again, this might seem frustrating, but it just means we need to include multiple commands in the same chunk (it also means if we make mistakes in one code chunk, we can just proceed to the next!).
+Again, this might seem frustrating, but it just means we need to include multiple commands in the same chunk (it also means if we make mistakes in one code chunk, we can just proceed to the next!).
 
 Run `stat stash.txt` again below (after creating it with `touch`)
 
-```{bash stash-txt-stat, exercise = TRUE}
+```{bash stash-txt-stat, exercise = TRUE, exercise.lines = 4}
 # re-enter 'touch stash.txt'
 
 # re-enter 'stat stash.txt' and click Run Code
@@ -576,38 +576,93 @@ Change: 2022-01-04 09:48:19.276836284 +0000
  Birth: -
  ```
  
+## Operators 
+
+Operators help redirect the output from commands from the Terminal output to another location (usually a file). The two operators we'll cover are `>` and `>>`. 
+
++ `>` redirects a commands output to a file, but overwrites any existing contents of the file. You might recall this operator from the 'Unix Systems' section example with the `curl` command (use this operator carefully!).
+
++ `>>` does the same thing as `>`, but it *appends* the commands output to a file (i.e., adds the text to the end of the file), 
+
+If there isn’t an existing file, both `>` and `>>` creates a new file, then redirects the output to it.
+
+### Adding file contents
+
+Now that we've learned how to create a file with `touch`, we can add contents to the file with `echo`. 
+
+Any content passed as an argument to `echo` are printed to the Terminal. Test it in the code chunk below: 
+
+```{bash echo, exercise = TRUE, exercise.lines = 2}
+# enter some text inside the quotes after 'echo' and click Run Code
+echo " "
+```
+
+Now use `echo` to add content to a file named `stash.txt` using the code chunk below. Print the contents to the screen with `cat`
+
+```{bash echo-redirect-01, exercise = TRUE, exercise.lines = 4}
+# add text inside the quotes after 'echo' 
+echo " " > stash.txt
+# view the contents using `cat stash.txt` and click Run Code
+cat stash.txt
+```
+
+The `cat` command comes from the ability to [concatenate](https://en.wikipedia.org/wiki/Concatenation) files. To see how it works with the `>>` operator, add the contents 
+
+```{bash echo-redirect-02, exercise = TRUE, exercise.lines = 8}
+# add text inside the quotes after 'echo' and redirect to 'stash.txt'
+echo " " > stash.txt
+# add different text inside the quotes after 'echo', redirect to 'stash2.txt'
+echo " " > stash2.txt
+# append the contents of stash.txt to 'stash2.txt'
+cat stash.txt >> stash2.txt
+# view the contents using `cat stash.txt` and click Run Code
+cat stash2.txt
+```
+
+We're going to cover more commands for printing file contents in the next exercises.
+
+### Printing file contents 
+
+We're going to view the contents in the `who-tb-data.tsv` file in our `data` folder with `head`.  
+
+```bash
+└── data
+     └── who-tb-data.tsv
+```
+
+`head` displays the first 10 lines of a file. Use the code chunk below to view the first 10 lines of  `who-tb-data.tsv`: 
+
+```{bash head, exercise = TRUE, exercise.lines = 2}
+# view the first 10 lines of 'who-tb-data.tsv' with head and click Run Code
+
+```
+
+We can also view the last 10 lines of a file with `tail`. 
+
+```{bash tail, exercise = TRUE, exercise.lines = 2}
+# view the first 10 lines of 'who-tb-data.tsv' with tail and click Run Code
+
+```
+
+## Pipes 
+
+In the previous exercises, we learned how to view the first and last lines in a text file with `head` and `tail`. What if we wanted to combine these and get a specific row from `who-tb-data.tsv`? We could use the Unix pipe operator: `|`
 
 
-<!-- 
-If you don’t want the touch command to create new files, use the -c (--no-create) option.
-
-To display the file status including the timestamps, use the stat command.
-
-For example, if the file file1 exist the following command will change the file timestamps otherwise, it will do nothing:
-
-touch -c file1
--->
-
-### Create file content 
-
-`echo`
-
-### Print file contents 
-
-`cat` and `head` 
 
 ### Create a directory
 
 The command for creating a new directory is `mkdir`. In the code chunk below, create a new folder called `foo`
 
 ```{bash mkdir, exercise = TRUE}
-mkdir foo
+mkdir data/starwars
+curl 
 ```
 
 
 
 ```{bash mkdir-ls, exercise = TRUE}
-mkdir foo
+mkdir 
 ls
 ```
 
